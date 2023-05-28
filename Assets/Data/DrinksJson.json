@@ -1,0 +1,32 @@
+[
+   {
+      "code":0,
+      "name":"사과주스",
+      "price":300,
+      "info":"헉 사과주스다",
+      "cupNum":0,
+      "recipe":"20200",
+      "syrup":"none",
+      "topping":"none"
+   },
+   {
+      "code":1,
+      "name":"딸기라떼",
+      "price":400,
+      "info":"딸기먹고싶다",
+      "cupNum":2,
+      "recipe":"02200",
+      "syrup":"none",
+      "topping":"none"
+   },
+   {
+      "code":2,
+      "name":"와사비",
+      "price":500,
+      "info":"와사비 매워잉",
+      "cupNum":3,
+      "recipe":"22000",
+      "syrup":"none",
+      "topping":"none"
+   }
+]

@@ -1,0 +1,322 @@
+[
+   {
+      "code":0,
+      "name":"아메리까노",
+      "price":300,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["0006000060"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[60,50,50] },
+            { "color":[60,50,50] },
+            { "color":[60,50,50] },
+            { "color":[60,50,50] },
+            { "color":[60,50,50] },
+            { "color":[60,50,50] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":1,
+      "name":"딸기라떼",
+      "price":500,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["0210000250"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[255,170,170] },
+            { "color":[255,170,170] },
+            { "color":[255,170,170] },
+            { "color":[255,170,170] },
+            { "color":[255,170,170] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":2,
+      "name":"레몬워터",
+      "price":700,
+	  "condition":0,
+      "info":"레몬워터인듯",
+      "ingredients":["3000000030","1010000020","0010000010"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[170,213,85] },
+            { "color":[170,213,85] },
+            { "color":[255,222,0] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+      {
+      "code":3,
+      "name":"신비로운 민트 포션",
+      "price":300,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["4020000060"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[85,205,170] },
+            { "color":[85,205,170] },
+            { "color":[85,205,170] },
+            { "color":[85,205,170] },
+            { "color":[85,205,170] },
+            { "color":[85,205,170] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":4,
+      "name":"맹한 당근",
+      "price":500,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["0220000040","1010000020"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[255,141,86] },
+            { "color":[255,141,86] },
+            { "color":[255,141,86] },
+            { "color":[255,141,86] },
+            { "color":[128,209,128] },
+            { "color":[128,209,128] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":5,
+      "name":"로맨틱베리",
+      "price":700,
+	  "condition":0,
+      "info":"레몬워터인듯",
+      "ingredients":["3000000030","1010000020","0010000010"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[255,60,171] },
+            { "color":[255,60,171] },
+            { "color":[255,149,149] },
+            { "color":[255,149,149] },
+            { "color":[255,149,149] },
+            { "color":[255,149,149] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+      {
+      "code":6,
+      "name":"백일자몽",
+      "price":300,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["0006000060"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[255,238,127] },
+            { "color":[255,238,127] },
+            { "color":[255,238,127] },
+            { "color":[255,238,127] },
+            { "color":[255,238,127] },
+            { "color":[255,238,127] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":7,
+      "name":"코코넛드림",
+      "price":500,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["0210000250"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[223,183,164] },
+            { "color":[223,183,164] },
+            { "color":[223,183,164] },
+            { "color":[223,183,164] },
+            { "color":[223,183,164] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":8,
+      "name":"단풍에이드",
+      "price":700,
+	  "condition":0,
+      "info":"레몬워터인듯",
+      "ingredients":["3000000030","1010000020","0010000010"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[255,222,0] },
+            { "color":[255,168,57] },
+            { "color":[255,168,57] },
+            { "color":[255,168,57] },
+            { "color":[255,141,86] },
+            { "color":[255,141,86] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+      {
+      "code":9,
+      "name":"청산에 낀 한라봉",
+      "price":300,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["0006000060"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[127,209,128] },
+            { "color":[255,168,57] },
+            { "color":[255,168,57] },
+            { "color":[127,209,128] },
+            { "color":[127,209,128] },
+            { "color":[127,209,128] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":10,
+      "name":"무궁화 라떼",
+      "price":500,
+	  "condition":0,
+      "info":"아메리까노인듯",
+      "ingredients":["0210000250"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[255,170,170] },
+            { "color":[255,170,170] },
+            { "color":[255,170,170] },
+            { "color":[255,170,170] },
+            { "color":[255,170,170] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":11,
+      "name":"광야의 자두주스",
+      "price":700,
+	  "condition":0,
+      "info":"레몬워터인듯",
+      "ingredients":["3000000030","1010000020","0010000010"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[170,213,85] },
+            { "color":[170,213,85] },
+            { "color":[255,222,0] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":12,
+      "name":"악마의 속삭임",
+      "price":700,
+	  "condition":0,
+      "info":"레몬워터인듯",
+      "ingredients":["3000000030","1010000020","0010000010"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[170,213,85] },
+            { "color":[170,213,85] },
+            { "color":[255,222,0] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+   },
+   {
+      "code":13,
+      "name":"천사의 눈물",
+      "price":700,
+	  "condition":0,
+      "info":"레몬워터인듯",
+      "ingredients":["3000000030","1010000020","0010000010"],
+      "drink":{
+         "cupNum":0,
+         "colors":[
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[0,196,255] },
+            { "color":[170,213,85] },
+            { "color":[170,213,85] },
+            { "color":[255,222,0] }
+         ],
+         "gradient":[0],
+         "whipping":"none",
+         "syrup":"none",
+         "topping":"none"
+      }
+
+   }
+]

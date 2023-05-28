@@ -1,0 +1,710 @@
+[
+   {
+      "name":"곰돌이",
+      "script":[
+         {
+            "line":"Hey there!$ How's it going?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for asking! How about you?",
+                  "nextLine":1,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Not so good, actually...",
+                  "nextLine":2,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"I'm doing pretty well, thanks. How can I help you today?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I was wondering if you had any job openings.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Just browsing, thanks.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Sorry to hear that. Is there anything I can do to help?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"No, it's nothing you can help with.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"Actually, maybe there is...",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Yes, we actually have a few job openings right now. Would you like me to send you the details?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll pass.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Okay, what do you need help with?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I'm looking for a specific product.",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"I have a question about your store hours.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"We don't currently have that product in stock, but we can order it for you if you'd like.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please order it for me!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll try somewhere else.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Our store hours are 9am-6pm Monday through Friday, and 10am-5pm on weekends.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for letting me know!",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"김토순",
+      "script":[
+         {
+            "line":"Hey there!$ How's it going?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for asking! How about you?",
+                  "nextLine":1,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Not so good, actually...",
+                  "nextLine":2,
+                  "heart":-1
+               }
+            ]
+         },
+         {
+            "line":"I'm doing pretty well, thanks. How can I help you today?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I was wondering if you had any job openings.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Just browsing, thanks.",
+                  "nextLine":-1,
+                  "heart":2
+               }
+            ]
+         },
+         {
+            "line":"Sorry to hear that. Is there anything I can do to help?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"No, it's nothing you can help with.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"Actually, maybe there is...",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Yes, we actually have a few job openings right now. Would you like me to send you the details?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll pass.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Okay, what do you need help with?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I'm looking for a specific product.",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"I have a question about your store hours.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"We don't currently have that product in stock, but we can order it for you if you'd like.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please order it for me!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll try somewhere else.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Our store hours are 9am-6pm Monday through Friday, and 10am-5pm on weekends.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for letting me know!",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"사부기",
+      "script":[
+         {
+            "line":"Hey there!$ How's it going?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for asking! How about you?",
+                  "nextLine":1,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Not so good, actually...",
+                  "nextLine":2,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"I'm doing pretty well, thanks. How can I help you today?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I was wondering if you had any job openings.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Just browsing, thanks.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Sorry to hear that. Is there anything I can do to help?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"No, it's nothing you can help with.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"Actually, maybe there is...",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Yes, we actually have a few job openings right now. Would you like me to send you the details?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll pass.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Okay, what do you need help with?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I'm looking for a specific product.",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"I have a question about your store hours.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"We don't currently have that product in stock, but we can order it for you if you'd like.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please order it for me!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll try somewhere else.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Our store hours are 9am-6pm Monday through Friday, and 10am-5pm on weekends.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for letting me know!",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"시골쥐",
+      "script":[
+         {
+            "line":"Hey there!$ How's it going?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for asking! How about you?",
+                  "nextLine":1,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Not so good, actually...",
+                  "nextLine":2,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"I'm doing pretty well, thanks. How can I help you today?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I was wondering if you had any job openings.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Just browsing, thanks.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Sorry to hear that. Is there anything I can do to help?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"No, it's nothing you can help with.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"Actually, maybe there is...",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Yes, we actually have a few job openings right now. Would you like me to send you the details?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll pass.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Okay, what do you need help with?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I'm looking for a specific product.",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"I have a question about your store hours.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"We don't currently have that product in stock, but we can order it for you if you'd like.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please order it for me!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll try somewhere else.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Our store hours are 9am-6pm Monday through Friday, and 10am-5pm on weekends.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for letting me know!",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"효굴이",
+      "script":[
+         {
+            "line":"Hey there!$ How's it going?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for asking! How about you?",
+                  "nextLine":1,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Not so good, actually...",
+                  "nextLine":2,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"I'm doing pretty well, thanks. How can I help you today?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I was wondering if you had any job openings.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Just browsing, thanks.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Sorry to hear that. Is there anything I can do to help?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"No, it's nothing you can help with.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"Actually, maybe there is...",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Yes, we actually have a few job openings right now. Would you like me to send you the details?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll pass.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Okay, what do you need help with?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I'm looking for a specific product.",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"I have a question about your store hours.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"We don't currently have that product in stock, but we can order it for you if you'd like.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please order it for me!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll try somewhere else.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Our store hours are 9am-6pm Monday through Friday, and 10am-5pm on weekends.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for letting me know!",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         }
+      ]
+   },
+   {
+      "name":"토깡",
+      "script":[
+         {
+            "line":"Hey there!$ How's it going?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for asking! How about you?",
+                  "nextLine":1,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Not so good, actually...",
+                  "nextLine":2,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"I'm doing pretty well, thanks. How can I help you today?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I was wondering if you had any job openings.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"싫어",
+                  "text":"Just browsing, thanks.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Sorry to hear that. Is there anything I can do to help?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"No, it's nothing you can help with.",
+                  "nextLine":3,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"Actually, maybe there is...",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Yes, we actually have a few job openings right now. Would you like me to send you the details?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll pass.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Okay, what do you need help with?",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"I'm looking for a specific product.",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"I have a question about your store hours.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"We don't currently have that product in stock, but we can order it for you if you'd like.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Yes, please order it for me!",
+                  "nextLine":-1,
+                  "heart":1
+               },
+               {
+                  "select":"좋아",
+                  "text":"No thanks, I'll try somewhere else.",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         },
+         {
+            "line":"Our store hours are 9am-6pm Monday through Friday, and 10am-5pm on weekends.",
+            "answers":[
+               {
+                  "select":"좋아",
+                  "text":"Great, thanks for letting me know!",
+                  "nextLine":-1,
+                  "heart":1
+               }
+            ]
+         }
+      ]
+   }
+]

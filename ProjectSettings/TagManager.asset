@@ -1,0 +1,65 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Animal
+  - Drink
+  - Cup
+  - Color
+  - Syrup
+  - Topping
+  - Coin
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - Drag
+  - LongClick
+  - Text
+  - OverUI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Animal
+    uniqueID: 1861473639
+    locked: 0
+  - name: Desk
+    uniqueID: 670426065
+    locked: 0
+  - name: Liquid
+    uniqueID: 3717987905
+    locked: 0
+  - name: Text
+    uniqueID: 668964435
+    locked: 0
+  - name: UI
+    uniqueID: 4256488797
+    locked: 0

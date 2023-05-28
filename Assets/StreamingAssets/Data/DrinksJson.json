@@ -1,0 +1,53 @@
+[
+   {
+      "code":0,
+      "name":"아메리까노",
+      "price":300,
+      "info":"아메리까노인듯",
+      "cupNum":0,
+	  "color0":[60, 50, 50],
+	  "color1":[60, 50, 50],
+	  "color2":[60, 50, 50],
+	  "color3":[60, 50, 50],
+	  "color4":[60, 50, 50],	
+	  "color5":[60, 50, 50],
+      "dropNum":"06",
+      "recipe":"80,60,50-",
+      "syrup":"none",
+      "topping":"none"
+   },
+  {
+    "code": 1,
+    "name": "딸기우유",
+    "price": 400,
+    "info": "255,170,170-",
+    "cupNum": 0,
+	"color0":[255,170,170],
+	"color1":[255,170,170],
+	"color2":[255,170,170],
+	"color3":[255,170,170],
+	"color4":[255,170,170],
+	"color5":"",
+    "dropNum":"05",
+    "recipe": "255,170,170-",
+    "syrup": "none",
+    "topping": "none"
+  },
+  {
+    "code": 2,
+    "name": "상큼워터",
+    "price": 500,
+    "info": "딸기우유념념",
+    "cupNum": 0,
+	"color0":[51,201,204],
+	"color1":[51,201,204],
+	"color2":[51,201,204],
+	"color3":[51,201,204],
+	"color4":[51,201,204],
+	"color5":"",
+    "dropNum":"05",
+    "recipe": "51,201,204-",
+    "syrup": "none",
+    "topping": "none"
+  }
+]
