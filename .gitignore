@@ -1,1 +1,14 @@
-Library/
+/Library/
+/Packages/
+/ProjectSettings/PackageManager/
+/Build/
+/Builds/
+/ProjectSettings/EditorUserSettings.asset
+/ProjectSettings/ProjectVersion.txt
+/ProjectSettings/GraphicsSettings.asset
+/ProjectSettings/QualitySettings.asset
+/ProjectSettings/EditorBuildSettings.asset
+/Temp/
+/obj/
+/*.tmp
+/*.log
