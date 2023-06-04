@@ -117,6 +117,7 @@
     <Compile Include="Assets\Script\TextPopUpManager.cs" />
     <Compile Include="Assets\Script\TouchLock.cs" />
     <Compile Include="Assets\Script\TypeWriterEffect.cs" />
+    <Compile Include="Assets\Script\UIEffects.cs" />
     <Compile Include="Assets\TableMoney.cs" />
     <Compile Include="Assets\TextmeshOutline.cs" />
     <None Include="Assets\Material\BlurShader.shader" />
@@ -702,6 +703,10 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{DAB4A941-D250-C075-A37A-5BF4D604FBA6}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="Coffee.UIParticle.csproj">
+      <Project>{EC32F818-ACB5-49BA-FFB2-6BC402277C24}</Project>
+      <Name>Coffee.UIParticle</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
