@@ -122,6 +122,10 @@
     <Compile Include="Assets\TextmeshOutline.cs" />
     <None Include="Assets\Material\BlurShader.shader" />
     <None Include="Assets\Material\NewImageEffectShader.shader" />
+    <None Include="Assets\Material\Multiply.shader" />
+    <None Include="Assets\Material\Screen.shader" />
+    <None Include="Assets\Material\OverlayShader.shader" />
+    <None Include="Assets\Material\SampleShader.shader" />
     <Reference Include="Unity.TextMeshPro.Editor">
       <HintPath>D:/Documents/GitHub/AnimalCafe/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
     </Reference>
