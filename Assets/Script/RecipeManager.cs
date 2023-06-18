@@ -9,6 +9,7 @@ public class RecipeManager : MonoBehaviour
     public Recipe recipe;
     public Image cupBack;
     public Image cupFrame;
+    public Image cupCap;
     public Image liquidMask;
     public List<Image> LiquidDiv;
     public Image toppingSprite;
@@ -28,12 +29,18 @@ public class RecipeManager : MonoBehaviour
 
         cupBack.sprite = Resources.Load<Sprite>(path + "/Liquid-" + recipe.drink.cupNum);
         cupFrame.sprite = Resources.Load<Sprite>(path + "/Frame-" + recipe.drink.cupNum);
+
+        //원본컵이고 뚜껑 있는 경우 뚜껑 할당
+        Sprite cap = Resources.Load<Sprite>(path + "/Cap-" + recipe.drink.cupNum);
+        if (cap != null && orign == true) { cupCap.gameObject.SetActive(true); cupCap.sprite = cap; }
+        else { cupCap.gameObject.SetActive(false); }    
         liquidMask.sprite = Resources.Load<Sprite>(path + "/Liquid-" + recipe.drink.cupNum);
+
         if(recipeName != null) recipeName.text = recipe.name;
         if(recipePrice != null) recipePrice.text = string.Format("{0:#,0}", recipe.price.ToString());
         if (recipeIngredients != null) recipeIngredients.text = recipe.ingredients;
         if (recipeInfo != null) recipeInfo.text = recipe.info;
-        if (recipe.drink.topping != "none") toppingSprite.sprite = Resources.Load<Sprite>("Cup_thum" + "/Topping_" + recipe.drink.topping); else toppingSprite.sprite = null;
+        if (recipe.drink.topping != "none") toppingSprite.sprite = Resources.Load<Sprite>(path + "/Topping_" + recipe.drink.topping); else toppingSprite.sprite = null;
         //if (outline != null) outline.SetOutlineDrink();
 
         //액체에 색상넣기
