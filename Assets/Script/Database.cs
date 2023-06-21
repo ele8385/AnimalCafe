@@ -12,9 +12,10 @@ public class Database : MonoBehaviour
     public string[] paths;
 
     public int version;      //새로운 앱 버전
-    public List<Animal> animals = new List<Animal>();
+    public List<AnimalData> animals = new List<AnimalData>();
     public List<Recipe> recipes = new List<Recipe>();
     public List<Dialogue> dialogues = new List<Dialogue>();
+    public List<ItemData> items = new List<ItemData>();
     
     private void Awake()
     {
@@ -25,6 +26,7 @@ public class Database : MonoBehaviour
         RecipeLoad("Data/RecipeJson.json");
         AnimalsLoad("Data/AnimalsJson.json");
         DialogueLoad("Data/Dialogue.json");
+        ItemLoad("Data/ItemJson.json");
 
         State.instance.Load();
 
@@ -32,22 +34,31 @@ public class Database : MonoBehaviour
     private void Start()
     {
     }
-    public Animal GetAnimalByCode(int animalCode)
+    public AnimalData GetAnimalData(int animalCode)
     {
-        return animals.Find(delegate (Animal bk) { return bk.code == animalCode; });
+        return animals.Find(delegate (AnimalData bk) { return bk.code == animalCode; });
     }
-    public Recipe GetRecipeByCode(int recipeCode)
+
+    public Recipe GetRecipeData(int recipeCode)
     {
         return recipes.Find(delegate (Recipe bk) { return bk.code == recipeCode; });
     }
-    public Animal GetAnimalByName(string animalName)
+
+    public AnimalData GetAnimalData(string animalName)
     {
-        return animals.Find(delegate (Animal bk) { return bk.name == animalName; });
+        return animals.Find(delegate (AnimalData bk) { return bk.name == animalName; });
     }
-    public Recipe GetRecipeByName(string recipeName)
+
+    public Recipe GetRecipeData(string recipeName)
     {
         return recipes.Find(delegate (Recipe bk) { return bk.name == recipeName; });
     }
+
+    public ItemData GetItemData(int itemCode)
+    {
+        return items.Find(delegate (ItemData bk) { return bk.code == itemCode; });
+    }
+
     //동물 이름으로 해당 동물의 대화 가져오기
     public Dialogue GetDial(string name)
     {
@@ -62,14 +73,17 @@ public class Database : MonoBehaviour
 
         Recipe recipe = recipes.Find(delegate (Recipe bk) { return bk.name == _recipe; });
 
-        animals.Add(new Animal(_code, _name, type, _info, _hiddenInfo, _hello, _script_good, _script_bad, recipe, _moneyCondition, moodType, _moodCondition, _temperatureCondition));
+        animals.Add(new AnimalData(_code, _name, type, _info, _hiddenInfo, _hello, _script_good, _script_bad, recipe, _moneyCondition, moodType, _moodCondition, _temperatureCondition));
     }
     public void RecipeAdd(int _code, string _name, int _price, int _condition, string _info, List<Ingredient> _ingredients, Drink _drink)
     {
 
         recipes.Add(new Recipe(_code, _name, _price, _condition, _info, _ingredients, _drink));
     }
-
+    public void ItemAdd(int _code, string _name, string _category, string _type, string _info, int _price, List<string> _mood)
+    {
+        items.Add(new ItemData(_code, _name, _category, _type, _info, _price, _mood));
+    }
     public void AnimalsLoad(string filename)
     {
         byte[] byteContents = BetterStreamingAssets.ReadAllBytes(filename);
@@ -173,6 +187,38 @@ public class Database : MonoBehaviour
             Debug.Log("DrinksLoad 오류");
         }
 
+    }
+    public void ItemLoad(string filename)
+    {
+        byte[] byteContents = BetterStreamingAssets.ReadAllBytes(filename);
+        string contentsString = System.Text.Encoding.GetEncoding("UTF-8").GetString(byteContents);
+
+        JsonData jsonData = JsonMapper.ToObject(contentsString);
+        try
+        {
+            for (int i = 0; i < jsonData.Count; i++)
+            {
+                // 쉼표로 분리하여 배열로 만듦
+                string[] dataArray = jsonData[i]["mood"].ToString().Split(',');
+
+                // 배열을 List로 변환
+                List<string> mood = new List<string>(dataArray);
+
+                ItemAdd(
+                    (int)jsonData[i]["code"],
+                    jsonData[i]["name"].ToString() + i.ToString(),
+                    jsonData[i]["category"].ToString(),
+                    jsonData[i]["type"].ToString(),
+                    jsonData[i]["info"].ToString(),
+                    (int)jsonData[i]["price"],
+                    mood
+                    );
+            }
+        }
+        catch
+        {
+            Debug.Log("itemsLoad 오류");
+        }
     }
 
     public void DialogueLoad(string filename)

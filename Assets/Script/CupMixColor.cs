@@ -16,6 +16,7 @@ public class CupMixColor : MonoBehaviour
     public Sprite liquid_block;
     public Animator effect;
     public Vector3 floorPos;
+    private float popupPosY = -700f;
 
     public List<GameObject> LiquidDiv;
     public List<Vector3> liquidPos;
@@ -51,7 +52,7 @@ public class CupMixColor : MonoBehaviour
     //색상 떨어뜨림(누르고 있으면 일정 간격으로 호출)
     public bool DroppingColor(Collider2D col)
     {
-        if (dropNum >= dropMaxNum) { cupManager.TextPopUp.OpenPopUp("컵이 꽉 찼어요", -760f); return false; } // 이미 넣음
+        if (dropNum >= dropMaxNum) { cupManager.TextPopUp.OpenPopUp("컵이 꽉 찼어요", popupPosY); return false; } // 이미 넣음
 
         if (noMix) DoNotMix(); //층 나눔
 
@@ -87,8 +88,8 @@ public class CupMixColor : MonoBehaviour
 
         else if (col.gameObject.name == "Powder")
         {
-            if (dropNum < 1) { cupManager.TextPopUp.OpenPopUp("빈 컵엔 뿌릴 수 없어요", -760f); return; } // 빈컵
-            if (noMix) { cupManager.TextPopUp.OpenPopUp("이미 넣었어요", -760f); return; } // 이미 넣음
+            if (dropNum < 1) { cupManager.TextPopUp.OpenPopUp("빈 컵엔 뿌릴 수 없어요", popupPosY); return; } // 빈컵
+            if (noMix) { cupManager.TextPopUp.OpenPopUp("이미 넣었어요", popupPosY); return; } // 이미 넣음
             //그라데이션 넣고 이거 바로 넣어도 상관 없을 듯
             effect.Play("Shiny", -1);
             noMix = true;
@@ -97,13 +98,13 @@ public class CupMixColor : MonoBehaviour
 
         else if (col.gameObject.name == "Gradient")
         {
-            if (dropNum < 1) { cupManager.TextPopUp.OpenPopUp("빈 컵은 섞을 수 없어요", -760f); return; } // 빈컵
-            if (dropNum == gradient.Last()) { cupManager.TextPopUp.OpenPopUp("이미 섞었어요", -760f); return; } // 이미 넣음
+            if (dropNum < 1) { cupManager.TextPopUp.OpenPopUp("빈 컵은 섞을 수 없어요", popupPosY); return; } // 빈컵
+            if (dropNum == gradient.Last()) { cupManager.TextPopUp.OpenPopUp("이미 섞었어요", popupPosY); return; } // 이미 넣음
 
             //마지막그라디언트 이후로 2개 이상의 색이 안 쌓인 경우                                                                                                         
             List<int> temp = dropDivNum; if(dropDivNum.Last() != dropNum) dropDivNum.Add(dropNum); //현재 dropNum을 추가한 dropDivNum리스트 임시 생성
             int a = temp.IndexOf(gradient.Last()); //마지막 그라디언트한 Div의 인덱스
-            if (a >= temp.Count - 2) { cupManager.TextPopUp.OpenPopUp("두 가지 이상의 색이 쌓여야\n섞을 수 있어요", -760f); return; }
+            if (a >= temp.Count - 2) { cupManager.TextPopUp.OpenPopUp("두 가지 이상의 색이 쌓여야\n섞을 수 있어요", popupPosY); return; }
 
             Gradient();
             noMix = true;
@@ -111,7 +112,7 @@ public class CupMixColor : MonoBehaviour
 
         else if (col.gameObject.name == "Whippings")
         {
-            if (dropNum < dropMaxNum - 1) { cupManager.TextPopUp.OpenPopUp("컵을 꽉 채워야 휘핑을 올릴 수 있어요", -760f); return; }
+            if (dropNum < dropMaxNum - 1) { cupManager.TextPopUp.OpenPopUp("컵을 꽉 채워야 휘핑을 올릴 수 있어요", popupPosY); return; }
 
             whipping.ResetTrigger("reset");
             //휘핑 넘버 설정

@@ -26,7 +26,7 @@ public class AnimalPageView : MonoBehaviour
         {
             //유닛 인덱스
             int index = (page * unitCount) + i;
-            Animal animal = Database.instance.animals[index];
+            AnimalData AnimalData = Database.instance.animals[index];
 
             //동물 수 초과하면 비활성화
             if (State.instance.myState.myAnimals.Count <= index)
@@ -37,7 +37,7 @@ public class AnimalPageView : MonoBehaviour
             {
                 Unit[i].gameObject.SetActive(true);
                 //동물이미지 및 그림자 넣기
-                string filename = System.Text.RegularExpressions.Regex.Replace(animal.name, @"\d", "");
+                string filename = System.Text.RegularExpressions.Regex.Replace(AnimalData.name, @"\d", "");
 
                 Sprite[] sprites = Resources.LoadAll<Sprite>("Character/" + filename);
                 Unit[i].transform.Find("Thumnail").transform.Find("Img").GetComponent<Image>().sprite = sprites[0];
@@ -47,7 +47,7 @@ public class AnimalPageView : MonoBehaviour
                 if (State.instance.myState.myAnimals[index].heart > 0)
                 {
                     //동물이름
-                    Unit[i].transform.Find("Name").GetComponent<Text>().text = animal.name;
+                    Unit[i].transform.Find("Name").GetComponent<Text>().text = AnimalData.name;
                     //동물그림자없애기
                     Unit[i].transform.Find("Thumnail").transform.Find("Shadow").transform.Find("Color").GetComponent<Image>().color = new Color(1, 1, 1, 0);
 
@@ -63,7 +63,7 @@ public class AnimalPageView : MonoBehaviour
 
                     }
                     //유닛 프리팹의 스크립트에 동물 정보 넣기
-                    Unit[i].gameObject.GetComponent<AnimalUnit>().animal = animal;
+                    Unit[i].gameObject.GetComponent<AnimalUnit>().AnimalData = AnimalData;
                 }
                 //동물 미오픈
                 else
@@ -71,13 +71,13 @@ public class AnimalPageView : MonoBehaviour
                     Unit[i].transform.Find("Thumnail").transform.Find("Shadow").transform.Find("Color").GetComponent<Image>().color = new Color(123 / 255f, 88 / 255f, 69 / 255f, 1);
                     //동물이름 및 힌트
                     Unit[i].transform.Find("Name").GetComponent<Text>().text = "???";
-                    Unit[i].transform.Find("Hint").GetComponent<Text>().text = animal.hello;
+                    Unit[i].transform.Find("Hint").GetComponent<Text>().text = AnimalData.hello;
 
                     Unit[i].transform.Find("Hint").gameObject.SetActive(true);
                     Unit[i].transform.Find("Heart").gameObject.SetActive(false);
 
                     //유닛 프리팹의 스크립트에 동물 정보 빼기
-                    Unit[i].gameObject.GetComponent<AnimalUnit>().animal = new Animal();
+                    Unit[i].gameObject.GetComponent<AnimalUnit>().AnimalData = new AnimalData();
                 }
             }
         }

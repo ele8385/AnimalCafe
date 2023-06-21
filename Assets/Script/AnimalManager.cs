@@ -44,20 +44,20 @@ public class AnimalManager : MonoBehaviour
         for (int i = 0; i < childCount; i++)
         {
             //현재 인덱스의 애니멀오브젝트 할당
-            AnimalMovement animal = transform.GetChild(i).gameObject.GetComponent<AnimalMovement>();
+            AnimalMovement AnimalData = transform.GetChild(i).gameObject.GetComponent<AnimalMovement>();
 
             //이미 입장한 동물오브젝트면 패스
-            if (animal.enter) continue;
+            if (AnimalData.enter) continue;
 
             //동물캐스팅 됐으면 등장 안됐으면 패스
-            Animal castAnimal = CastAnimal();
-            if (castAnimal != null) { animal.Come(castAnimal); break; }
+            AnimalData castAnimal = CastAnimal();
+            if (castAnimal != null) { AnimalData.Come(castAnimal); break; }
             else break;
         }
         ResetTime();
     }
     //랜덤동물 배정
-    private Animal CastAnimal()
+    private AnimalData CastAnimal()
     {
         int code;
         List<int> randomCodes = new List<int>();
@@ -76,7 +76,7 @@ public class AnimalManager : MonoBehaviour
                 //등장조건: 1.총수익 2.무드 3.기온 4.날씨 5.호감도 6.중복
 
                 //총수익이 조건에 안맞으면 패스
-                if (State.instance.myState.totalMoney < Database.instance.GetAnimalByCode(code).moneyCondition) continue;
+                if (State.instance.myState.totalMoney < Database.instance.GetAnimalData(code).moneyCondition) continue;
                 //중복동물 있으면 패스
                 if (nowAnimals.Contains(code)) continue;
 

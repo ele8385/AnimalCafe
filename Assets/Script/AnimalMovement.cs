@@ -31,7 +31,7 @@ public class AnimalMovement : MonoBehaviour {
     public HeartManager heartManager;
     public CoinManager coinManager;  //머리 위에 금액 올라감 표시
     public SeatManager seat;  //테이블 좌석
-    public Animal animal;
+    public AnimalData AnimalData;
     public Animator animator;
     public Animator moveAnimator;
     //public RuntimeAnimatorController moveAnimator0;
@@ -123,9 +123,9 @@ public class AnimalMovement : MonoBehaviour {
     }
 
     //<AnimalManager>에서 호출. 동물 캐스팅 후 등장시킴
-    public void Come(Animal castAnimal)
+    public void Come(AnimalData castAnimal)
     {
-        animal = castAnimal;
+        AnimalData = castAnimal;
         enter = true;
         SetAnimal();
         //등장 시작
@@ -136,7 +136,7 @@ public class AnimalMovement : MonoBehaviour {
     //동물리셋
     public void ResetAnimal()
     {
-        transform.parent.gameObject.GetComponent<AnimalManager>().RemoveAnimal(animal.code); //현재 매장 내 동물 리스트에서 삭제
+        transform.parent.gameObject.GetComponent<AnimalManager>().RemoveAnimal(AnimalData.code); //현재 매장 내 동물 리스트에서 삭제
         Money.SetActive(false);
         Heart.SetActive(false);
         Talk.SetActive(false);
@@ -172,23 +172,23 @@ public class AnimalMovement : MonoBehaviour {
         tableDrink.MakeDrink(recipe.drink);
         
         StartCoroutine(WaitCo(SitTalking, 2f));
-        //spriteRenderer.sprite = Resources.Load<Sprite>("Character/" + animal.name);
+        //spriteRenderer.sprite = Resources.Load<Sprite>("Character/" + AnimalData.name);
     }
 
     //캐스팅된 동물 셋팅
     private void SetAnimal()
     {
-        filename = System.Text.RegularExpressions.Regex.Replace(animal.name, @"\d", "");
+        filename = System.Text.RegularExpressions.Regex.Replace(AnimalData.name, @"\d", "");
         //스프라이트와 애니메이터 할당
         spriteRenderer.sprite = Resources.Load<Sprite>("Character/" + filename);
         animator.runtimeAnimatorController = (RuntimeAnimatorController)RuntimeAnimatorController.Instantiate(Resources.Load("Animator/Animal_" + filename, typeof(RuntimeAnimatorController))); ;
 
         //랜덤 음료배정
-        if (animal.recipe == null) { recipe = State.instance.GetRandomRecipe(); }
-        else { recipe = animal.recipe; }
+        if (AnimalData.recipe == null) { recipe = State.instance.GetRandomRecipe(); }
+        else { recipe = AnimalData.recipe; }
         /*
         int a = Random.Range(0, 4); 
-        if (a > 1) recipe = animal.recipe; //75%의 확률로 최애음료 배정
+        if (a > 1) recipe = AnimalData.recipe; //75%의 확률로 최애음료 배정
         else//25%의 확률로 랜덤음료 배정
         {
             // 해당 음료 오픈되었는지 여부
@@ -221,9 +221,9 @@ public class AnimalMovement : MonoBehaviour {
         if (waitNum < counterLine)
         {
             //대화 이벤트 시작
-            if (State.instance.GetBoolEvent(animal.code))
+            if (State.instance.GetBoolEvent(AnimalData.code))
             {
-                balloonManager.OpenSpeakBalloon(animal.hello, true);
+                balloonManager.OpenSpeakBalloon(AnimalData.hello, true);
             }
             //주문 시작
             else
@@ -236,7 +236,7 @@ public class AnimalMovement : MonoBehaviour {
     public void StartOrder()
     {
         balloonManager.OpenOrderBalloon();
-        State.instance.AddOrderCount(animal.code);
+        State.instance.AddOrderCount(AnimalData.code);
         circleCollider.enabled = true;
         orderPapers.MakeOrderPaper(recipe, waitNum % counterLine, this);
     }
@@ -286,10 +286,10 @@ public class AnimalMovement : MonoBehaviour {
                 orderDrinkColors[i].g + range < takeDrinkColors[i].g || orderDrinkColors[i].g - range > takeDrinkColors[i].g ||
                 orderDrinkColors[i].b + range < takeDrinkColors[i].b || orderDrinkColors[i].b - range > takeDrinkColors[i].b)
             {
-                balloonManager.OpenSpeakBalloon(animal.script_bad); return true;
+                balloonManager.OpenSpeakBalloon(AnimalData.script_bad); return true;
             }
         }
-        State.instance.AddBuyCount(animal.code);//판매 수 증가
+        State.instance.AddBuyCount(AnimalData.code);//판매 수 증가
 
         //원하는 음료 전달
         if (takeDrinkColors.SequenceEqual(orderDrinkColors))
@@ -299,15 +299,15 @@ public class AnimalMovement : MonoBehaviour {
             //시럽 성공
             if (takeDrink.syrup == syrup && syrup != "")
             {
-                balloonManager.OpenSpeakBalloon(animal.script_good); // 추후 퍼펙트 대사 수정
+                balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
                 //heartManager.AddHeart();
-                State.instance.AddHeart(animal.code, 2);
+                State.instance.AddHeart(AnimalData.code, 2);
             }
             //시럽 제외성공
             else
             {
-                balloonManager.OpenSpeakBalloon(animal.script_good);
-                State.instance.AddHeart(animal.code, 1);
+                balloonManager.OpenSpeakBalloon(AnimalData.script_good);
+                State.instance.AddHeart(AnimalData.code, 1);
             }
 
             //레시피 등록 성공
@@ -320,7 +320,7 @@ public class AnimalMovement : MonoBehaviour {
         else
         {
             coinManager.AddMoney("coin", recipe.price / 2); //수익 증가
-            balloonManager.OpenSpeakBalloon(animal.script_good); // 추후 soso 대사 수정
+            balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 soso 대사 수정
             Debug.Log("비슷");
         }
         return true;

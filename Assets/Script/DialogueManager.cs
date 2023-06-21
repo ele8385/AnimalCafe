@@ -16,7 +16,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject btns;
     public AnimalMovement ThisAnimal;
     public Button btn1, btn2, btn3, btn4;
-    public MyAnimal animal;
+    public Animal AnimalData;
 
     public int lineNum = 0;
 
@@ -49,10 +49,10 @@ public class DialogueManager : MonoBehaviour
     {
         GameObject.Find("Canvas").gameObject.GetComponent<TouchLock>().SetOn(); //스크롤터치잠금
 
-        animal = State.instance.GetMyAnimal(_code);
+        AnimalData = State.instance.GetMyAnimal(_code);
         ThisAnimal = _animal;
         gameObject.SetActive(true);
-        animalName.text = animal.name;
+        animalName.text = AnimalData.name;
         animalImg.sprite = _animal.transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>().sprite;
 
         if (ordering) PrintOrder();  //주문 대사
@@ -61,8 +61,8 @@ public class DialogueManager : MonoBehaviour
             try
             {
                 //line(대사)에 나눠쓰기 기호($)있으면 문자열 분할하여 리스트로 저장
-                string filename = System.Text.RegularExpressions.Regex.Replace(animal.name, @"\d", "");
-                script = Database.instance.GetDial(filename).scripts[animal.dialNum];
+                string filename = System.Text.RegularExpressions.Regex.Replace(AnimalData.name, @"\d", "");
+                script = Database.instance.GetDial(filename).scripts[AnimalData.dialNum];
                 lines = script.line?.Split('$').ToList();
             }
             catch (DivideByZeroException err)
@@ -133,8 +133,8 @@ public class DialogueManager : MonoBehaviour
         }
         selecting = true;
 
-        State.instance.AddHeart(animal.code, script.answers[selectNum].heart);
-        State.instance.AddDialNum(animal.code, script.answers[selectNum].nextLine);
+        State.instance.AddHeart(AnimalData.code, script.answers[selectNum].heart);
+        State.instance.AddDialNum(AnimalData.code, script.answers[selectNum].nextLine);
 
         printLine = script.answers[selectNum].text;
         enumerator = PrintText();

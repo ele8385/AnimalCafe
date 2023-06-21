@@ -129,7 +129,7 @@ public class DragAndDrop : MonoBehaviour {
                     if (DropObject) 
                     {
                         /*
-                        if (target.tag == "Drink" && DropObject.tag == "Animal") //음료를 동물에게 줌
+                        if (target.tag == "Drink" && DropObject.tag == "AnimalData") //음료를 동물에게 줌
                         {
 
                             DrinkManager drink = target.GetComponent<DrinkManager>();
@@ -183,7 +183,7 @@ public class DragAndDrop : MonoBehaviour {
             target = hit.collider.gameObject;  //히트 된 게임 오브젝트를 타겟으로 지정
 
             /*
-            if (gameObject.tag == "Drink" && target.tag == "Animal") //음료를 동물에게 줌
+            if (gameObject.tag == "Drink" && target.tag == "AnimalData") //음료를 동물에게 줌
             {
                 Debug.Log("동물클릭");
 

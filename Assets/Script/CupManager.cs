@@ -17,6 +17,7 @@ public class CupManager : MonoBehaviour
     public Animator animator;
     public Vector3 floorPos;
     public Transform Liquid;
+    private float popupPosY = -700f;
 
     public int cupHeight; //0 중간컵 1 낮은컵(티) 2 높은컵(파르페)
     public float liquidDepth; //"Liquid"가 컵 아래로 내려가는 깊이 0: -4.8
@@ -49,7 +50,7 @@ public class CupManager : MonoBehaviour
 
     public void ClickMakeBtn()
     {
-        if (mixColor.dropNum < 1) { TextPopUp.OpenPopUp("컵이 비어서 완성할 수 없어요.", -760f); return; }
+        if (mixColor.dropNum < 1) { TextPopUp.OpenPopUp("컵이 비어서 완성할 수 없어요.", popupPosY); return; }
         if (!moving)
         {
             moving = true;

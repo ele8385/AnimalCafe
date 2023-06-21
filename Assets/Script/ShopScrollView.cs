@@ -36,7 +36,6 @@ public class ShopScrollView : MonoBehaviour
             {
                 int index = (j * column) + i - 1;
                 ItemUnit itemScript = content.GetChild(j).transform.GetChild(i).gameObject.GetComponent<ItemUnit>();
-                itemScript.applying = false;
                 itemScript.ItemBtnSet();
             }
         }

@@ -43,14 +43,14 @@ public class BalloonManager : MonoBehaviour
     {
         if (!dialog) return;
         AnimalMovement anim = GetComponent<AnimalMovement>();
-        GameObject.Find("Canvas").transform.Find("Dialogue_window").GetComponent<DialogueManager>().OpenDialogue(anim.animal.code, anim);
+        GameObject.Find("Canvas").transform.Find("Dialogue_window").GetComponent<DialogueManager>().OpenDialogue(anim.AnimalData.code, anim);
         ResetBalloon();
     }
     public void ClickOrderBalloon()
     {
         if (dialog) return;
         AnimalMovement anim = GetComponent<AnimalMovement>();
-        GameObject.Find("Canvas").transform.Find("Dialogue_window").GetComponent<DialogueManager>().OpenDialogue(anim.animal.code, anim, true);
+        GameObject.Find("Canvas").transform.Find("Dialogue_window").GetComponent<DialogueManager>().OpenDialogue(anim.AnimalData.code, anim, true);
         ResetBalloon();
     }
 }
