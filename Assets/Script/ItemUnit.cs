@@ -62,26 +62,31 @@ public class ItemUnit : MonoBehaviour
 
     public void ClickBuyBtn()
     {
-        popUp.OpenSelectPopUp("해당 아이템을 구입할까요?", BuyItem); //확인 누르면 BuyItem()실행
+        popUp.OpenItemPopUp(itemData, BuyItem); //확인 누르면 BuyItem()실행
     }
 
+    public void ClickApplyBtn()
+    {
+        popUp.OpenItemPopUp(itemData, ApplyItem); //확인 누르면 BuyItem()실행
+    }
+
+    public void ClickApplyingBtn()
+    {
+        popUp.OpenItemPopUp(itemData, null); //확인 누르면 BuyItem()실행
+    }
+    
     public void BuyItem()
     {
         if(State.instance.AddInteriorItem(itemData)) //아이템 추가하고 성공true반환하면 적용실행
         ApplyItem();
     }
-
-    public void ClickApplyBtn()
-    {
-        popUp.OpenSelectPopUp("해당 아이템을 적용할까요?", ApplyItem); //확인 누르면 BuyItem()실행
-    }
-
+    
     public void ApplyItem()
     {
         State.instance.ApplyInteriorItem(itemData);
 
         //모든 아이템 정보 업데이트하고 창 끄기
-        GameObject ScrollView = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.gameObject;
+        GameObject ScrollView = transform.parent.transform.parent.transform.parent.transform.parent.gameObject;
         ScrollView.transform.parent.transform.parent.gameObject.SetActive(false);
         GameObject.Find("Canvas").GetComponent<TouchLock>().SetOff();
     }
