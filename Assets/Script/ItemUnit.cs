@@ -18,16 +18,17 @@ public class ItemUnit : MonoBehaviour
     public GameObject HaveBtn;
     public GameObject ApplyBtn;
 
-    //초기 아이템버튼 셋팅
-    public void ItemSet()
+    //아이템 셋팅
+    public void ItemSet(ItemData _itemData)
     {
-        popUp = GameObject.Find("Canvas").transform.Find("PopUp").gameObject.GetComponent<PopUpManager>();
+        itemData = _itemData;
 
-        itemData = Database.instance.GetItemData(code);
+        code = itemData.code;
         itemNameText.text = itemData.name;
-        itemPriceText.text = Regex.Replace(itemData.price.ToString(), @"[^0-9]", "");
+        itemPriceText.text = string.Format("{0:#,0}", itemData.price);
         spriteRenderer.sprite = itemData.thumNail;
-        spriteRenderer.color = itemData.color;
+        ItemBtnSet();
+        popUp = GameObject.Find("Canvas").transform.Find("PopUp").gameObject.GetComponent<PopUpManager>();
     }
 
     //버튼 해당되는 거 켬
@@ -81,7 +82,6 @@ public class ItemUnit : MonoBehaviour
 
         //모든 아이템 정보 업데이트하고 창 끄기
         GameObject ScrollView = transform.parent.transform.parent.transform.parent.transform.parent.transform.parent.gameObject;
-        ScrollView.GetComponent<ShopScrollView>().ItemsBtnSet();
         ScrollView.transform.parent.transform.parent.gameObject.SetActive(false);
         GameObject.Find("Canvas").GetComponent<TouchLock>().SetOff();
     }

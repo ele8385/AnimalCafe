@@ -19,6 +19,10 @@ public class CategorySwap : MonoBehaviour
 
     public void SelectBtn(Image selBtnImg)
     {
+        foreach(Transform i in transform)
+        {
+            
+        }
         for (int i = 0; i < transform.childCount; i++)
         {
             Image btnImage = transform.GetChild(i).GetComponent<Image>();

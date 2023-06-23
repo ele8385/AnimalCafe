@@ -11,9 +11,10 @@ public class ItemData
     public string type;
     public string info;
     public int price;
-    public Color color;
     public List<string> mood;
     public Sprite thumNail;
+
+    public ItemData() { }
 
     public ItemData(int _code, string _name, string _category, string _type, string _info, int _price, List<string> _mood)
     {
@@ -24,7 +25,6 @@ public class ItemData
         info = _info;
         price = _price;
         mood = _mood;
-        thumNail = Resources.Load<Sprite>("Item/Interior/" + name);
-        color = Color.white;
+        thumNail = Resources.Load<Sprite>("UI/Item/" + category + "/" + type + "/" + name);
     }
 }

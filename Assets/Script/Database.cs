@@ -206,7 +206,7 @@ public class Database : MonoBehaviour
 
                 ItemAdd(
                     (int)jsonData[i]["code"],
-                    jsonData[i]["name"].ToString() + i.ToString(),
+                    jsonData[i]["name"].ToString(),
                     jsonData[i]["category"].ToString(),
                     jsonData[i]["type"].ToString(),
                     jsonData[i]["info"].ToString(),

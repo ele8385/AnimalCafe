@@ -27,7 +27,7 @@ public class MyState
 
 
 
-    public ItemData Wallpaper, WallBand, WallBand2, Floor;
+    public ItemData Wallpaper, WallBand, Floor;
     public ItemData Table0, Table1, Table2, Table3, Table4, Table5;
 
     //C:\Users\ele83\AppData\LocalLow\PandaPie\AnimalCafe

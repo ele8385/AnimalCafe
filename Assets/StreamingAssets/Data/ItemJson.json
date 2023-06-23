@@ -2,17 +2,134 @@
    {
       "code":0,
 	  "name": "분홍벽지",
-	  "category": "인테리어",
-	  "type": "벽지",
+	  "category": "Interior",
+	  "type": "Wallpaper",
 	  "info": "분홍분홍하다",
 	  "price": 2000,
 	  "mood": "기본,로맨틱"
    },
    {
       "code":1,
-	  "name": "노랑벽지",
-	  "category": "인테리어",
-	  "type": "벽지",
+	  "name": "갈색벽지",
+	  "category": "Interior",
+	  "type": "Wallpaper",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":2,
+	  "name": "파란벽지",
+	  "category": "Interior",
+	  "type": "Wallpaper",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":3,
+	  "name": "남색벽지",
+	  "category": "Interior",
+	  "type": "Wallpaper",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":4,
+	  "name": "보라벽지",
+	  "category": "Interior",
+	  "type": "Wallpaper",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":5,
+	  "name": "베이지바닥지",
+	  "category": "Interior",
+	  "type": "Floor",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":6,
+	  "name": "오렌지바닥지",
+	  "category": "Interior",
+	  "type": "Floor",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":7,
+	  "name": "하늘바닥지",
+	  "category": "Interior",
+	  "type": "Floor",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":8,
+	  "name": "보라바닥지",
+	  "category": "Interior",
+	  "type": "Floor",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":9,
+	  "name": "핑크바닥지",
+	  "category": "Interior",
+	  "type": "Floor",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":10,
+	  "name": "빨간띠벽지",
+	  "category": "Interior",
+	  "type": "Wallband",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":11,
+	  "name": "파란띠벽지",
+	  "category": "Interior",
+	  "type": "Wallband",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":12,
+	  "name": "노란띠벽지",
+	  "category": "Interior",
+	  "type": "Wallband",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":13,
+	  "name": "하늘띠벽지",
+	  "category": "Interior",
+	  "type": "Wallband",
+	  "info": "노랑분홍하다",
+	  "price": 2000,
+	  "mood": "기본,로맨틱"
+   },
+   {
+      "code":14,
+	  "name": "빨간테이블",
+	  "category": "Furniture",
+	  "type": "Table",
 	  "info": "노랑분홍하다",
 	  "price": 2000,
 	  "mood": "기본,로맨틱"

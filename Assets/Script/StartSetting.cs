@@ -6,7 +6,6 @@ public class StartSetting : MonoBehaviour
 {
     //비활성화 오브젝트의 초기화스크립트 실행 용도
 
-    public ShopScrollView shopScrollView;
     public RectTransform orderPaperPos;
     public Camera camera;
     // Start is called before the first frame updates
@@ -17,12 +16,6 @@ public class StartSetting : MonoBehaviour
 
     private void Start()
     {
-
-        //아이템 초기화
-        shopScrollView.ItemsSet(); //이거 왜 awake??
-
-        //아이템 버튼 초기화 및 적용 아이템 스프라이트 넣기
-        shopScrollView.ItemsBtnSet();
         Vector2 vector = camera.WorldToScreenPoint(GameObject.Find("OrderPapersPos").gameObject.transform.position);
 
         //RectTransform 좌푯값을 전달받을 변수
