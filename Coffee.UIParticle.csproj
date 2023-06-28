@@ -47,22 +47,38 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.18</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2021.1.28f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticleRenderer.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\ModifiedMaterial.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticleUpdater.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\AnimatableProperty.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticle.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Utils.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticleAttractor.cs" />
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticleRenderer.cs">
+      <Link>Scripts\UIParticleRenderer.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\ModifiedMaterial.cs">
+      <Link>Scripts\ModifiedMaterial.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticleUpdater.cs">
+      <Link>Scripts\UIParticleUpdater.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\AnimatableProperty.cs">
+      <Link>Scripts\AnimatableProperty.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticle.cs">
+      <Link>Scripts\UIParticle.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Utils.cs">
+      <Link>Scripts\Utils.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\UIParticleAttractor.cs">
+      <Link>Scripts\UIParticleAttractor.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Coffee.UIParticle.asmdef" />
+    <None Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Coffee.UIParticle.asmdef">
+      <Link>Scripts\Coffee.UIParticle.asmdef</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

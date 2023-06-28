@@ -10,12 +10,13 @@ public class PopUpManager : MonoBehaviour
     public GameObject PopUp_Select;
     public GameObject PopUp_Item;
     public delegate void Func();
+    public PopUpManager_Item popUpManager_Item;
     public Func func;
 
     //확인 팝업(확인 텍스트 바꿈)
     public void OpenOkPopUp(string messege, string buttonMessege)
     {
-        transform.Find("Button_OK").gameObject.GetComponent<Text>().text = buttonMessege;
+        PopUp_OK.transform.Find("Window").transform.Find("Button_OK").transform.Find("Text").gameObject.GetComponent<Text>().text = buttonMessege;
         OpenOkPopUp(messege);
     }
 
@@ -23,7 +24,7 @@ public class PopUpManager : MonoBehaviour
     public void OpenOkPopUp(string messege)
     {
         PopUp_OK.SetActive(true);
-        transform.Find("Messege").gameObject.GetComponent<Text>().text = messege;
+        PopUp_OK.transform.Find("Window").transform.Find("Messege").gameObject.GetComponent<Text>().text = messege;
     }
 
     //아이템 정보 팝업
@@ -31,29 +32,7 @@ public class PopUpManager : MonoBehaviour
     {
 
         PopUp_Item.SetActive(true);
-
-        Item item = State.instance.GetMyItem(itemData.code);
-        Debug.Log(0);
-
-        Debug.Log(PopUp_Item.transform.Find("ItemImage").gameObject.name);
-
-        PopUp_Item.transform.Find("ItemImage").GetComponent<Image>().sprite = itemData.thumNail;
-        PopUp_Item.transform.Find("ItemName").GetComponent<Text>().text = itemData.name;
-        PopUp_Item.transform.Find("ItemInfo").GetComponent<Text>().text = itemData.info;
-        PopUp_Item.transform.Find("ButtonText").GetComponent<Text>().text = string.Format("{0:#,0}", itemData.price);
-
-        GameObject BtnPrice = PopUp_Item.transform.Find("ButtonBuy").gameObject;
-        GameObject BtnApply = PopUp_Item.transform.Find("ButtonApply").gameObject;
-        GameObject BtnApplying = PopUp_Item.transform.Find("Button_Applying").gameObject;
-
-        BtnPrice.SetActive(false);
-        BtnApply.SetActive(false);
-        BtnApplying.SetActive(false);
-       
-        if      (item == null)          BtnPrice.SetActive(true);       //미보유 아이템
-        else if (item.apply == true)    BtnApply.SetActive(true);       //적용 중인 보유 아이템
-        else                            BtnApplying.SetActive(true);    //보유 아이템
-
+        popUpManager_Item.OpenItemPopUp(itemData);
         func = _func;
     }
 

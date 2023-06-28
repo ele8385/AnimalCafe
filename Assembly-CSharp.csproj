@@ -47,7 +47,7 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.18</UnityProjectGeneratorVersion>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2021.1.28f1</UnityVersion>
@@ -73,7 +73,6 @@
     <Compile Include="Assets\Script\CupManager_backup.cs" />
     <Compile Include="Assets\Script\BalloonManager.cs" />
     <Compile Include="Assets\Script\StartSetting.cs" />
-    <Compile Include="Assets\CategorySwap.cs" />
     <Compile Include="Assets\Script\CameraSet_object.cs" />
     <Compile Include="Assets\Script\DragAndDrop_backup.cs" />
     <Compile Include="Assets\Script\AnimalScrollView.cs" />
@@ -111,6 +110,7 @@
     <Compile Include="Assets\Script\OrderPapersManager.cs" />
     <Compile Include="Assets\Script\Recipe.cs" />
     <Compile Include="Assets\Script\Dialogue.cs" />
+    <Compile Include="Assets\Script\PopUpManager_Item.cs" />
     <Compile Include="Assets\Script\AnimalManager.cs" />
     <Compile Include="Assets\Script\State.cs" />
     <Compile Include="Assets\Script\ClickChange.cs" />

@@ -47,19 +47,29 @@
   <PropertyGroup>
     <ProjectTypeGuids>{E097FAD1-6243-4DAD-9C02-E9B9EFC3FFC1};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.11</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.18</UnityProjectGeneratorVersion>
     <UnityProjectType>Editor:5</UnityProjectType>
     <UnityBuildTarget>StandaloneWindows:5</UnityBuildTarget>
     <UnityVersion>2021.1.28f1</UnityVersion>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\AnimatedPropertiesEditor.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\UIParticleEditor.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\UIParticleMenu.cs" />
-    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\ImportSampleMenu.cs" />
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\AnimatedPropertiesEditor.cs">
+      <Link>Scripts\Editor\AnimatedPropertiesEditor.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\UIParticleEditor.cs">
+      <Link>Scripts\Editor\UIParticleEditor.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\UIParticleMenu.cs">
+      <Link>Scripts\Editor\UIParticleMenu.cs</Link>
+    </Compile>
+    <Compile Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\ImportSampleMenu.cs">
+      <Link>Scripts\Editor\ImportSampleMenu.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\Coffee.UIParticle.Editor.asmdef" />
+    <None Include="D:\Documents\GitHub\Packages\ParticleEffectForUGUI-main\Scripts\Editor\Coffee.UIParticle.Editor.asmdef">
+      <Link>Scripts\Editor\Coffee.UIParticle.Editor.asmdef</Link>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

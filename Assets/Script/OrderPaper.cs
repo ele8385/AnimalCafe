@@ -36,16 +36,28 @@ public class OrderPaper : MonoBehaviour
             gameObject.SetActive(true);
             animator.SetBool("Open", true);
         }
+        else
+        {
+
+        }
+        gameObject.SetActive(open);
+        animator.SetBool("Open", open);
+
     }
 
+    //주문서 선택 대기 중 바들바들 떠는 모션
     public void WaitSelect()
     {
         animator.SetTrigger("Wait_Select");
     }
+
+    //주문서 선택 완료
     public void WaitEnd()
     {
         animator.SetTrigger("Wait_End");
     }
+
+    //주문서 클릭
     public void ClickOrderPaper()
     {
         if (cupManager.complate) //음료 완성 버튼 누른 상태에서 누르면 음료 전달
@@ -58,6 +70,7 @@ public class OrderPaper : MonoBehaviour
         }
     }
 
+    //주문서 정보창 오픈
     public void OpenRecipeInfo()
     {
         recipeInfo.OpenRecipeInfo(orderRecipe);
@@ -77,6 +90,6 @@ public class OrderPaper : MonoBehaviour
     public void ResetOrderPaper()
     {
         open = false;
-        animator.SetBool("Open", false);
+        //animator.SetBool("Selected", false);
     }
 }
