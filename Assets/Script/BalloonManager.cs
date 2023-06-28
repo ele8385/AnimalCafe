@@ -33,10 +33,11 @@ public class BalloonManager : MonoBehaviour
         dialog = _dialog;
         OpenSpeakBalloon(_text);
     }
-    public void OpenOrderBalloon()
+    public void OpenOrderBalloon(bool open)
     {
-        //OrderBallon.SetActive(true);
-        SpeakBalloon.SetActive(false);
+        if(SpeakBalloon.activeSelf == false)
+        OrderBallon.SetActive(open);
+        //SpeakBalloon.SetActive(false);
     }
     //대화 이벤트 풍선 클릭
     public void ClickSpeakBalloon()

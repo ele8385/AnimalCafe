@@ -4,4 +4,5 @@ using UnityEngine;
 
 public class SeatManager : MonoBehaviour {
     public bool full;
+    public AnimalMovement animal;
 }

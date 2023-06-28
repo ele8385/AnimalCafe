@@ -234,7 +234,7 @@ public class AnimalMovemen_backupt : MonoBehaviour {
 
     public void StartOrder()
     {
-        balloonManager.OpenOrderBalloon();
+        //balloonManager.OpenOrderBalloon();
         State.instance.AddOrderCount(AnimalData.code);
         circleCollider.enabled = true;
     }

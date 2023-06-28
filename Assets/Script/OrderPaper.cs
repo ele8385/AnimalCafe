@@ -42,7 +42,6 @@ public class OrderPaper : MonoBehaviour
         }
         gameObject.SetActive(open);
         animator.SetBool("Open", open);
-
     }
 
     //주문서 선택 대기 중 바들바들 떠는 모션

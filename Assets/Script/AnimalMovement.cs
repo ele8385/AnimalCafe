@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 using UnityEngine.UI;
+using UnityEngine.SocialPlatforms;
 
 public class AnimalMovement : MonoBehaviour {
 
@@ -59,7 +60,7 @@ public class AnimalMovement : MonoBehaviour {
         circleCollider   = GetComponent<CircleCollider2D>();
         
         CountPos         = GameObject.Find("Counter").transform.Find("CountPos").gameObject;
-        orderPapers      = GameObject.Find("Canvas").transform.Find("KitchenUI").transform.Find("OrderPapers").gameObject.GetComponent<OrderPapersManager>();
+        orderPapers      = GameObject.Find("Canvas").transform.Find("InKitchenUI").transform.Find("OrderPapers").gameObject.GetComponent<OrderPapersManager>();
         AnimalManagement = GameObject.Find("AnimalManagement");
         
         tempCounterPos   = GameObject.Find("TempCounterPos").transform.position;
@@ -100,6 +101,7 @@ public class AnimalMovement : MonoBehaviour {
             if (! _seatManager.full)
             {
                 _seatManager.full = true;
+                _seatManager.animal = this;
                 waitNum = i;
                 int line = i / counterLine;
                 counterPos = new Vector3(_seatManager.gameObject.transform.position.x,
@@ -220,6 +222,7 @@ public class AnimalMovement : MonoBehaviour {
         Stand();
         if (waitNum < counterLine)
         {
+
             //대화 이벤트 시작
             if (State.instance.GetBoolEvent(AnimalData.code))
             {
@@ -235,7 +238,7 @@ public class AnimalMovement : MonoBehaviour {
 
     public void StartOrder()
     {
-        balloonManager.OpenOrderBalloon();
+        //balloonManager.OpenOrderBalloon(true);
         State.instance.AddOrderCount(AnimalData.code);
         circleCollider.enabled = true;
         orderPapers.MakeOrderPaper(recipe, waitNum % counterLine, this);
@@ -264,66 +267,93 @@ public class AnimalMovement : MonoBehaviour {
         //대화 이벤트 진행 중인가
         if (balloonManager.SpeakBalloon.activeSelf == true) return false;
 
-        Drink takeDrink = _takeDrink;
-        string syrup = takeDrink.syrup;
-        string topping = takeDrink.topping;
-
         circleCollider.enabled = true;
         StartCoroutine(WaitCo(TakeOut, 2f));
 
-        //주문한 음료의 색상리스트 변환
-        List<Color> orderDrinkColors = ConvertColors(recipe.drink.colors);
-
-        //받은 음료의 색상리스트 변환
-        List<Color> takeDrinkColors = ConvertColors(takeDrink.colors);
-
-        float range = 50f;
-
-        //잘못된 음료 전달
-        for (int i = 0; i < takeDrinkColors.Count; i++)
+        int result = CompareDrink(_takeDrink); // 0: miss 1:ok 2:perfect
+        
+        if      (result  == -1) balloonManager.OpenSpeakBalloon("뭔가 잘못 들어갔어.");
+        else if (result  == -2) balloonManager.OpenSpeakBalloon("휘핑이 이게 아니야.");
+        else if (result == 0)//miss
         {
-            if (orderDrinkColors[i].r + range < takeDrinkColors[i].r || orderDrinkColors[i].r - range > takeDrinkColors[i].r ||
-                orderDrinkColors[i].g + range < takeDrinkColors[i].g || orderDrinkColors[i].g - range > takeDrinkColors[i].g ||
-                orderDrinkColors[i].b + range < takeDrinkColors[i].b || orderDrinkColors[i].b - range > takeDrinkColors[i].b)
-            {
-                balloonManager.OpenSpeakBalloon(AnimalData.script_bad); return true;
-            }
+            balloonManager.OpenSpeakBalloon(AnimalData.script_bad); 
         }
-        State.instance.AddBuyCount(AnimalData.code);//판매 수 증가
-
-        //원하는 음료 전달
-        if (takeDrinkColors.SequenceEqual(orderDrinkColors))
+        else
         {
-            coinManager.AddMoney("coin", recipe.price); //수익 증가
-
-            //시럽 성공
-            if (takeDrink.syrup == syrup && syrup != "")
-            {
+            State.instance.AddBuyCount(AnimalData.code);//판매 수 증가
+            //OK
+            if (result == 1)  { 
                 balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
-                //heartManager.AddHeart();
-                State.instance.AddHeart(AnimalData.code, 2);
-            }
-            //시럽 제외성공
-            else
-            {
-                balloonManager.OpenSpeakBalloon(AnimalData.script_good);
+                coinManager.AddMoney("coin", recipe.price / 2); //수익 증가
                 State.instance.AddHeart(AnimalData.code, 1);
             }
-
+            //perfect
+            else if (result == 2)
+            {
+                balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
+                coinManager.AddMoney("coin", recipe.price); //수익 증가
+                State.instance.AddHeart(AnimalData.code, 2);
+            }
             //레시피 등록 성공
             if (State.instance.AddRecipe(recipe))
             {
                 //성공 이펙트
             }
         }
-        //비슷한 음료 전달 -> 판매금 반값, 호감도 변화X
-        else
+        return true;
+    }
+
+    //컬러 두 가지를 비교(range만큼의 허용치)하여 일치하면 true
+    public bool CompareColor(float range, Color order, Color take)
+    {
+        if (order.r + range < take.r || order.r - range > take.r ||
+            order.g + range < take.g || order.g - range > take.g ||
+            order.b + range < take.b || order.b - range > take.b)
         {
-            coinManager.AddMoney("coin", recipe.price / 2); //수익 증가
-            balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 soso 대사 수정
-            Debug.Log("비슷");
+            return false;
         }
         return true;
+    }
+
+    //컬러리스트 두 가지를 비교
+    public int CompareDrink(Drink _takeDrink)
+    {
+        //주문한 음료의 색상리스트 변환
+        List<Color> order = ConvertColors(recipe.drink.colors);
+
+        //받은 음료의 색상리스트 변환
+        List<Color> take = ConvertColors(_takeDrink.colors);
+
+        bool custom = false; //임시변수. recipe로 넣기
+
+        //커스텀음료가 아닐 경우
+        if (!custom)
+        {
+            if (_takeDrink.topping != recipe.drink.topping) return -1;
+            if (_takeDrink.whipping != recipe.drink.whipping) return -2;
+            if (_takeDrink.cupNum!= recipe.drink.cupNum) return -3;
+            if (_takeDrink.gradient.SequenceEqual(recipe.drink.gradient)) return -4;
+            for (int i = 0; i < take.Count; i++)
+            {
+                if (!CompareColor(50f, order[i], take[i])) return 0;
+            }
+            if (take.SequenceEqual(order)) return 2;
+            return 1;
+        }
+        else
+        {
+            if (recipe.name == "desert")
+            {
+                CompareColor(70f, order[0], take[0]); //"desert"라는 커스텀음료의 경우 음료 색상의 첫 번째만 맞혀도 성공
+                return 2;
+            }
+            else if (recipe.name == "carrot")
+            {
+                CompareColor(70f, order[0], take[0]);
+                return 2;
+            }
+        }
+        return 0;
     }
 
     public void TakeOut()
@@ -379,6 +409,8 @@ public class AnimalMovement : MonoBehaviour {
     {
         //카운터 서 있는 자리 비움
         CountPos.transform.GetChild(waitNum).gameObject.GetComponent<SeatManager>().full = false;
+        CountPos.transform.GetChild(waitNum).gameObject.GetComponent<SeatManager>().animal = null;
+
 
         //뒷자리 동물 컴포넌트 할당
         for (int i = 0; i < AnimalManagement.transform.childCount / counterLine; i++)

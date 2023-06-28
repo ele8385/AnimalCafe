@@ -97,4 +97,13 @@ public class AnimalManager : MonoBehaviour
     {
         nowAnimals.Remove(_code);
     }
+
+    public void OpenMiniBalloon(bool open)
+    {
+        foreach(SeatManager seet in counterSeat)
+        {
+            if(seet.animal != null)
+                seet.animal.gameObject.GetComponent<BalloonManager>().OpenOrderBalloon(open);
+        }
+    }
 }
