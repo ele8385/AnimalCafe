@@ -15,7 +15,7 @@ public class ItemUnit : MonoBehaviour
     public PopUpManager popUp;
     public GameObject LinkObject;
     public GameObject BuyBtn;
-    public GameObject HaveBtn;
+    public GameObject ApplyingBtn;
     public GameObject ApplyBtn;
 
     //아이템 셋팅
@@ -40,22 +40,22 @@ public class ItemUnit : MonoBehaviour
         { 
             if (item.apply)            //적용 중 아이템 = 적용 중 버튼 활성화
             {
+                ApplyingBtn.SetActive(true);
                 BuyBtn.SetActive(false);
-                HaveBtn.SetActive(true);
                 ApplyBtn.SetActive(false);
 
             }
             else
             {
-                BuyBtn.SetActive(false);
-                HaveBtn.SetActive(false);
                 ApplyBtn.SetActive(true);
+                BuyBtn.SetActive(false);
+                ApplyingBtn.SetActive(false);
             }
         }
         else                         //구매하기 버튼 활성화
         {
             BuyBtn.SetActive(true);
-            HaveBtn.SetActive(false);
+            ApplyingBtn.SetActive(false);
             ApplyBtn.SetActive(false);
         }
     }

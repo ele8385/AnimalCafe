@@ -28,8 +28,8 @@ public class PopUpManager_Item : MonoBehaviour
         ButtonApplying.SetActive(false);
 
         if (item == null) ButtonBuy.SetActive(true);       //미보유 아이템
-        else if (item.apply == true) ButtonApply.SetActive(true);       //적용 중인 보유 아이템
-        else ButtonApplying.SetActive(true);    //보유 아이템
+        else if (item.apply == true) ButtonApplying.SetActive(true);       //적용 중인 보유 아이템
+        else ButtonApply.SetActive(true);    //보유 아이템
         
     }
 }

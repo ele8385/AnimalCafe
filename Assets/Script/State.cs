@@ -15,22 +15,24 @@ public class MyState
     public int totalMoney;// { get; set; }  //지금까지 번 총 금액
     public int maxMoney;// { get; set; }
     public int repute;// { get; set; }  //평판
-    public int moodClassic;// { get; set; }  //클래식수치
-    public int moodRomantic;// { get; set; }  //로맨틱수치
-    public int moodTrendy;// { get; set; }  //트렌디수치
     public int maxHeart;// { get; set; }  //최대 하트
-    public List<string> mood = new List<string>();// { get; set; }  //분위기 워드
 
     public List<Animal> myAnimals = new List<Animal>(); //동물리스트
     public List<Recipe> myRecipe = new List<Recipe>(); //보유한 음료리스트
-    public List<Item> myItems = new List<Item>();
+    public List<Item> myItems = new List<Item>(); //보유한 아이템리스트
+    
+    public Dictionary<string, ItemData> applyItem = new Dictionary<string, ItemData>(); //적용 중인 아이템 딕셔너리
+    public List<ItemDictionary> tempList; //적용 중인 아이템 딕셔너리를 json에 저장하기 위한 임시 리스트
 
-
-
-    public ItemData Wallpaper, WallBand, Floor;
-    public ItemData Table0, Table1, Table2, Table3, Table4, Table5;
 
     //C:\Users\ele83\AppData\LocalLow\PandaPie\AnimalCafe
+}
+
+[System.Serializable]
+public class ItemDictionary //딕셔너리형 변수 json에 저장하도록 만든 클래스
+{
+    public string name;
+    public ItemData itemData;
 }
 public class State : MonoBehaviour {
 
@@ -50,11 +52,15 @@ public class State : MonoBehaviour {
         myState = new MyState();
         //Load(); 동물과 음료 배열 길이 불러오기 위해 Database에서 호출
 
+        Database.instance.DataLoad();
+        Load();
+
     }
     // Use this for initialization
     void Start () {
         MoneyText = GameObject.Find("Canvas").transform.Find("Top").transform.Find("Money").transform.Find("Text").GetComponent<Text>();
         Print(MoneyText);
+        //ItemSetting.ItemObjectSet();
     }
 
     public void Print(Text _text)
@@ -190,7 +196,7 @@ public class State : MonoBehaviour {
     public bool AddInteriorItem(ItemData itemData)
     {
         if (GetMyItem(itemData.code) != null) { popUp.OpenOkPopUp("이미 구입한 물건이에요."); return false; } //이미 구입했으면 false리턴
-        if (Resources.Load<Sprite>("Item/" + itemData.name) == null) { popUp.OpenOkPopUp("구매할 수 없는 물건이에요."); return false; }//이미지 없으면 리턴
+        if (Resources.Load<Sprite>(itemData.category + "/" + itemData.type + "/" + itemData.category + "_" + itemData.type + "_" + itemData.name) == null) { popUp.OpenOkPopUp("구매할 수 없는 물건이에요."); return false; }//이미지 없으면 리턴
         if (!MinusMoney(itemData.price)) return false; //돈 차감 실패하면 false 리턴
 
         myState.myItems.Add(new Item(itemData.code));
@@ -200,48 +206,25 @@ public class State : MonoBehaviour {
     //아이템 적용
     public bool ApplyInteriorItem(ItemData itemData)
     {
-        //기존 아이템 해제(특성치 빼기)하고 새로 넣기
-        if (itemData.type == "벽지") { ClearInteriorItem(myState.Wallpaper); myState.Wallpaper = itemData; }
-        else if (itemData.type == "바닥지") { ClearInteriorItem(myState.Floor); myState.Floor = itemData; }
+        //적용하려는 아이템이 보유 아이템 목록에 없다면 추가
+        if (GetMyItem(itemData.code) == null) { myState.myItems.Add(new Item(itemData.code));  }
 
-        Item item = GetMyItem(itemData.code);
-        item.apply = true;
 
-        //새 아이템 능력치 넣기
-        moodSet(itemData);
+        //해당 아이템 타입이 이미 존재하면 바꾸고 없으면 만들기
+        if (myState.applyItem.ContainsKey(itemData.type))
+        {
+            //기존 아이템 적용 해제
+            ItemData _itemData = myState.applyItem[itemData.type];
+            Debug.Log(_itemData.name);
+            GetMyItem(_itemData.code).apply = false;
+            myState.applyItem[itemData.type] = itemData;
+        }
+        else {  myState.applyItem.Add(itemData.type, itemData); Debug.Log(itemData.name); }
+
+        GetMyItem(itemData.code).apply = true;
+        
         Save();
         return true;
-    }
-
-    //아이템 해제
-    public bool ClearInteriorItem(ItemData itemData)
-    {
-        moodSet(itemData);
-        Save();
-        return true;
-    }
-    
-    //아이템 적용 유무 반환
-    public bool CheckApplyItem(string itemObject)
-    {
-        if (myState.Wallpaper.name    == itemObject) return true;
-        /*
-        if (myState.floor.  GetComponent<Item>().itemName   == itemObject) return true;
-        if (myState.table1. GetComponent<Item>().itemName  == itemObject) return true;
-        if (myState.table2. GetComponent<Item>().itemName  == itemObject) return true;
-        if (myState.table3. GetComponent<Item>().itemName  == itemObject) return true;
-        if (myState.table4. GetComponent<Item>().itemName  == itemObject) return true;
-        if (myState.table5. GetComponent<Item>().itemName  == itemObject) return true;
-        if (myState.table6. GetComponent<Item>().itemName  == itemObject) return true;
-        if (myState.Object1.GetComponent<Item>().itemName == itemObject) return true;
-        if (myState.Object3.GetComponent<Item>().itemName == itemObject) return true;
-        if (myState.Object2.GetComponent<Item>().itemName == itemObject) return true;*/
-        return false;
-    }
-
-    public void moodSet(ItemData itemData)
-    {
-        myState.mood.AddRange(itemData.mood);
     }
 
     public void CountEffet(int num, Text txt)
@@ -266,29 +249,27 @@ public class State : MonoBehaviour {
         Save();
     }
 
+    [ContextMenu("Reset")]
     public void ResetData()
     {
         myState.nowMoney = 600000;
         myState.totalMoney = myState.nowMoney;
         myState.maxMoney = 100000000;
         myState.repute = 0;
-        myState.moodClassic = 0;
-        myState.moodRomantic = 0;
-        myState.moodTrendy = 0;
         myState.maxHeart = 200;
-        myState.Wallpaper = GetComponent<DefaltItemList>().wall.gameObject.GetComponent<ItemUnit>().itemData; //?
 
         myState.myAnimals = new List<Animal>();
         myState.myRecipe = new List<Recipe>();
         myState.myItems = new List<Item>();
-
+        
         //디폴트 할당
         for (int i = 0; i < Database.instance.animals.Count; i++)
         {
             myState.myAnimals.Add(new Animal(i));
         }
-        myState.myItems.Add(new Item(0));
-
+        ApplyInteriorItem(Database.instance.GetItemData("분홍벽지"));
+        ApplyInteriorItem(Database.instance.GetItemData("분홍바닥지"));
+        ItemSetting.ItemObjectSet();
 
         Save();
         Debug.Log("초기화");
@@ -311,20 +292,44 @@ public class State : MonoBehaviour {
         else myState.myAnimals.RemoveRange(dataCount, stateCount - dataCount);
     }
 
+
     //불러오기 - <Database>().Awake()에서 호출
+    [ContextMenu("Load")]
     public void Load()
     {
-        if(!File.Exists(filePath)) { ResetData(); return; } //파일 없으면 초기화
+        if (!File.Exists(filePath)) { ResetData(); return; } //파일 없으면 초기화
 
         string jsonString = File.ReadAllText(filePath);
         myState = JsonUtility.FromJson<MyState>(jsonString);
-
+        
         if (Database.instance.version != myState.version) { myState.version = Database.instance.version; UpdateData(); } //버전 다르면 버전 올리고 DB업데이트
         else { UpdateData(); }
+
+        //딕셔너리형 변수 로드 가능하도록 변환
+        if (myState.tempList != null)
+        {
+            foreach (ItemDictionary pair in myState.tempList)
+            {
+                myState.applyItem.Add(pair.name, pair.itemData);
+            }
+        }
+            
     }
+
     [ContextMenu("Save")]
     public void Save()
     {
+        //딕셔너리형 변수 저장 가능하도록 변환
+        if (myState.tempList != null)
+        {
+            List<ItemDictionary> _tempList = new List<ItemDictionary>();
+            foreach (KeyValuePair<string, ItemData> pair in myState.applyItem)
+            {
+                _tempList.Add(new ItemDictionary { name = pair.Key, itemData = pair.Value });
+            }
+            myState.tempList = _tempList;
+        }
+
         string jsonData = JsonUtility.ToJson(myState, true);
         File.WriteAllText(filePath, jsonData);
     }

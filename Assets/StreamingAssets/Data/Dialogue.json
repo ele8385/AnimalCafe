@@ -31,7 +31,7 @@
                {
                   "select":"싫어",
                   "text":"Just browsing, thanks.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -48,7 +48,7 @@
                {
                   "select":"좋아",
                   "text":"Actually, maybe there is...",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -59,13 +59,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll pass.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -76,13 +76,13 @@
                {
                   "select":"좋아",
                   "text":"I'm looking for a specific product.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"I have a question about your store hours.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -93,13 +93,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please order it for me!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll try somewhere else.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -110,7 +110,7 @@
                {
                   "select":"좋아",
                   "text":"Great, thanks for letting me know!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -133,7 +133,7 @@
                   "select":"싫어",
                   "text":"Not so good, actually...",
                   "nextLine":2,
-                  "heart":-1
+                  "heart":1
                }
             ]
          },
@@ -149,7 +149,7 @@
                {
                   "select":"싫어",
                   "text":"Just browsing, thanks.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":2
                }
             ]
@@ -166,7 +166,7 @@
                {
                   "select":"좋아",
                   "text":"Actually, maybe there is...",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -177,13 +177,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll pass.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -194,13 +194,13 @@
                {
                   "select":"좋아",
                   "text":"I'm looking for a specific product.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"I have a question about your store hours.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -211,13 +211,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please order it for me!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll try somewhere else.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -228,7 +228,7 @@
                {
                   "select":"좋아",
                   "text":"Great, thanks for letting me know!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -267,7 +267,7 @@
                {
                   "select":"싫어",
                   "text":"Just browsing, thanks.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -284,7 +284,7 @@
                {
                   "select":"좋아",
                   "text":"Actually, maybe there is...",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -295,13 +295,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll pass.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -312,13 +312,13 @@
                {
                   "select":"좋아",
                   "text":"I'm looking for a specific product.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"I have a question about your store hours.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -329,13 +329,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please order it for me!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll try somewhere else.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -346,7 +346,7 @@
                {
                   "select":"좋아",
                   "text":"Great, thanks for letting me know!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -385,7 +385,7 @@
                {
                   "select":"싫어",
                   "text":"Just browsing, thanks.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -402,7 +402,7 @@
                {
                   "select":"좋아",
                   "text":"Actually, maybe there is...",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -413,13 +413,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll pass.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -430,13 +430,13 @@
                {
                   "select":"좋아",
                   "text":"I'm looking for a specific product.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"I have a question about your store hours.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -447,13 +447,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please order it for me!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll try somewhere else.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -464,7 +464,7 @@
                {
                   "select":"좋아",
                   "text":"Great, thanks for letting me know!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -503,7 +503,7 @@
                {
                   "select":"싫어",
                   "text":"Just browsing, thanks.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -520,7 +520,7 @@
                {
                   "select":"좋아",
                   "text":"Actually, maybe there is...",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -531,13 +531,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll pass.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -548,13 +548,13 @@
                {
                   "select":"좋아",
                   "text":"I'm looking for a specific product.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"I have a question about your store hours.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -565,13 +565,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please order it for me!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll try somewhere else.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -582,7 +582,7 @@
                {
                   "select":"좋아",
                   "text":"Great, thanks for letting me know!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -621,7 +621,7 @@
                {
                   "select":"싫어",
                   "text":"Just browsing, thanks.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -638,7 +638,7 @@
                {
                   "select":"좋아",
                   "text":"Actually, maybe there is...",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -649,13 +649,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll pass.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -666,13 +666,13 @@
                {
                   "select":"좋아",
                   "text":"I'm looking for a specific product.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"I have a question about your store hours.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -683,13 +683,13 @@
                {
                   "select":"좋아",
                   "text":"Yes, please order it for me!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                },
                {
                   "select":"좋아",
                   "text":"No thanks, I'll try somewhere else.",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]
@@ -700,7 +700,7 @@
                {
                   "select":"좋아",
                   "text":"Great, thanks for letting me know!",
-                  "nextLine":-1,
+                  "nextLine":1,
                   "heart":1
                }
             ]

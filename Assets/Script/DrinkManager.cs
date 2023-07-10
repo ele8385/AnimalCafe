@@ -21,7 +21,6 @@ public class DrinkManager : MonoBehaviour {
     public void MakeDrink(Drink _drink)
     {
         ResetDrink();
-
         string path = "";
         if (orign) path = "Cup"; else path = "Cup_thum";
 
@@ -36,10 +35,9 @@ public class DrinkManager : MonoBehaviour {
         //액체에 색상넣기
         for (int j = 0; j < dropMaxNum; j++)
         {
-            LiquidDiv[j].color = drink.colors[j];
-            if (j >= drink.colors.Count) LiquidDiv[j].color = new Color(1, 1, 1, 0);
+            if (j < drink.colors.Count) { Debug.Log(drink.colors.Count + "," + j); LiquidDiv[j].color = drink.colors[j]; }
+            else { Debug.Log(drink.colors.Count + "," + j);  LiquidDiv[j].color = new Color(1, 1, 1, 0);  }
         }
-
         cupHeight = 0; //이거해야할지..
 
         //액체 높이에 따른 조정

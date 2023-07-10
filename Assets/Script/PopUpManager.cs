@@ -30,7 +30,6 @@ public class PopUpManager : MonoBehaviour
     //아이템 정보 팝업
     public void OpenItemPopUp(ItemData itemData, Func _func)
     {
-
         PopUp_Item.SetActive(true);
         popUpManager_Item.OpenItemPopUp(itemData);
         func = _func;

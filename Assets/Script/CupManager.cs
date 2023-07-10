@@ -6,7 +6,7 @@ public class CupManager : MonoBehaviour
 {
 
     public TextPopUpManager TextPopUp;
-    public PickUpManager Pickup;
+    public OrderPapersManager orderPapersManager;
     public CupMixColor mixColor;
     public SpriteRenderer cupFrame;
     public SpriteRenderer cupCap;
@@ -57,6 +57,7 @@ public class CupManager : MonoBehaviour
             boxCollider.enabled = false;
             complate = true;
             animator.SetTrigger("CapClose");
+            orderPapersManager.WaitSelectOrderPapers();
         }
     }
 

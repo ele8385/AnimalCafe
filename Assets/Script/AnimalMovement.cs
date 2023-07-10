@@ -35,9 +35,6 @@ public class AnimalMovement : MonoBehaviour {
     public AnimalData AnimalData;
     public Animator animator;
     public Animator moveAnimator;
-    //public RuntimeAnimatorController moveAnimator0;
-    public RuntimeAnimatorController moveAnimator1; //문에서 카운터까지 이동
-    public RuntimeAnimatorController moveAnimator2; //카운터에서 밖으로 이동
     public SpriteRenderer spriteRenderer;
     public CircleCollider2D circleCollider;
 
@@ -101,7 +98,6 @@ public class AnimalMovement : MonoBehaviour {
             if (! _seatManager.full)
             {
                 _seatManager.full = true;
-                _seatManager.animal = this;
                 waitNum = i;
                 int line = i / counterLine;
                 counterPos = new Vector3(_seatManager.gameObject.transform.position.x,
@@ -133,8 +129,10 @@ public class AnimalMovement : MonoBehaviour {
         //등장 시작
         moveAnimator.enabled = true;
         moveAnimator.SetTrigger("Restart");
+        moveAnimator.Play("GoToCounter");
+
     }
-    
+
     //동물리셋
     public void ResetAnimal()
     {
@@ -144,9 +142,9 @@ public class AnimalMovement : MonoBehaviour {
         Talk.SetActive(false);
         balloonManager.ResetBalloon();
         Walk(); //서있기
-        moveAnimator.runtimeAnimatorController = moveAnimator1;
         moveAnimator.SetBool("counterFull", false);
         moveAnimator.enabled = false;
+        moveAnimator.Rebind();
         waitNum = -1;//카운터줄초기화
         enter = false;
         syrup = "";
@@ -238,10 +236,12 @@ public class AnimalMovement : MonoBehaviour {
 
     public void StartOrder()
     {
-        //balloonManager.OpenOrderBalloon(true);
-        State.instance.AddOrderCount(AnimalData.code);
+        State.instance.AddOrderCount(AnimalData.code); //주문 수 증가
+        if (Camera.main.GetComponent<CameraMovement>().inCounter)
+            balloonManager.OpenOrderBalloon(true);
         circleCollider.enabled = true;
         orderPapers.MakeOrderPaper(recipe, waitNum % counterLine, this);
+        CountPos.transform.GetChild(waitNum).gameObject.GetComponent<SeatManager>().animal = this;
     }
 
     //255배 해서 비교하는 이유: <Color>값 그대로 넣으면 소숫점 차이로 비교가 어긋나서 255를 곱한 뒤에 비교함.
@@ -396,9 +396,10 @@ public class AnimalMovement : MonoBehaviour {
     public void GoToRoute()
     {
         moveAnimator.enabled = true;
-        moveAnimator.runtimeAnimatorController = moveAnimator2;
         moveAnimator.SetTrigger("SetRoute");
         moveAnimator.SetInteger("route", exitRoute);
+        moveAnimator.Play("GoToDoor");
+
         if (indexChair == 0) moveAnimator.SetBool("Right", false);
         else moveAnimator.SetBool("Right", true);
         Walk();
@@ -452,49 +453,6 @@ public class AnimalMovement : MonoBehaviour {
         }
 
     }
-    /*
-    //gap만큼 위로 숫자 이동
-    IEnumerator TextUp()
-    {
-        Money.SetActive(true);
-        Transform Object = Money.gameObject.transform;
-        float _gap = 0.03f;
-
-        Vector3 originPos = new Vector3(Object.position.x, Object.position.y, Object.position.z);
-        Vector3 toPos = new Vector3(Object.position.x, Object.position.y + _gap, Object.position.z);
-
-        //FadeOut(Object.gameObject, 0.5f);
-
-        while (true)
-        {
-            Object.position = Vector3.Lerp(Object.position, toPos, 0.2f);
-            if (Object.position == toPos)
-            {
-                break;
-            }
-            yield return null;
-        }
-        Object.position = originPos;
-        Money.SetActive(false);
-
-        Heart.SetActive(true);
-        Object = Heart.gameObject.transform;
-        //FadeOut(Object.gameObject, 0.5f);
-        while (true)
-        {
-            Object.position = Vector3.Lerp(Object.position, toPos, 0.2f);
-            if (Object.position == toPos)
-            {
-                break;
-            }
-            yield return null;
-        }
-        Object.position = originPos;
-        Heart.SetActive(false);
-
-    }
-    */
-
 
     //sec초 뒤에 func함수 실행
     IEnumerator WaitCo(Func func, float sec)

@@ -8,8 +8,6 @@ using System;
 
 public class DialogueManager : MonoBehaviour
 {
-    public OrderManager orderManager;
-
     public Text animalName;
     public Text context;
     public Image animalImg;
@@ -39,8 +37,6 @@ public class DialogueManager : MonoBehaviour
     public void OpenDialogue(int _code, AnimalMovement _animal, bool _ordering)
     {
         ordering = _ordering;
-        orderManager.gameObject.SetActive(true);
-        orderManager.OpenOrderBalloon(_animal.recipe);
         OpenDialogue(_code, _animal);
     }
 
@@ -69,7 +65,6 @@ public class DialogueManager : MonoBehaviour
             {
                 Debug.Log("OpenDialogue 오류: " + err);
             }
-            orderManager.gameObject.SetActive(false);
             PrintDialogue();
         }
     }
@@ -162,7 +157,6 @@ public class DialogueManager : MonoBehaviour
         selecting = false;
         ThisAnimal.StartOrder();
         gameObject.SetActive(false);
-        orderManager.gameObject.SetActive(false);
         ordering = false;
     }
 

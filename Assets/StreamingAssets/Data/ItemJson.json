@@ -10,7 +10,7 @@
    },
    {
       "code":1,
-	  "name": "갈색벽지",
+	  "name": "하늘벽지",
 	  "category": "Interior",
 	  "type": "Wallpaper",
 	  "info": "노랑분홍하다",
@@ -19,7 +19,7 @@
    },
    {
       "code":2,
-	  "name": "파란벽지",
+	  "name": "회색벽지",
 	  "category": "Interior",
 	  "type": "Wallpaper",
 	  "info": "노랑분홍하다",
@@ -28,7 +28,7 @@
    },
    {
       "code":3,
-	  "name": "남색벽지",
+	  "name": "개나리벽지",
 	  "category": "Interior",
 	  "type": "Wallpaper",
 	  "info": "노랑분홍하다",
@@ -46,7 +46,7 @@
    },
    {
       "code":5,
-	  "name": "베이지바닥지",
+	  "name": "분홍바닥지",
 	  "category": "Interior",
 	  "type": "Floor",
 	  "info": "노랑분홍하다",
@@ -82,7 +82,7 @@
    },
    {
       "code":9,
-	  "name": "핑크바닥지",
+	  "name": "베이지바닥지",
 	  "category": "Interior",
 	  "type": "Floor",
 	  "info": "노랑분홍하다",

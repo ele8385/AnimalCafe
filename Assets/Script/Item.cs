@@ -8,7 +8,6 @@ public class Item
 {
     public int code;
     public string name;
-    public bool have; //보유&미적용
     public bool apply; //보유&미적용
 
     public Item() { }
@@ -17,7 +16,6 @@ public class Item
     {
         code = _code;
         name = Database.instance.items[code].name;
-        have = false;
         apply = false;
     }
 }

@@ -10,7 +10,12 @@ public class TextPopUpManager : MonoBehaviour
     public RectTransform rect;
     public Sprite warning, notice, system;
     public Color warningColor, noticeColor, systemColor;
-    
+
+    public void OpenPopUp(string messege)
+    {
+        OpenPopUp(messege, rect.anchoredPosition.y, "warning");
+    }
+
     public void OpenPopUp(string messege, float positionY)
     {
         OpenPopUp(messege, positionY, "warning");

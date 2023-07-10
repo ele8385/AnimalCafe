@@ -1,14 +1,23 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CameraMovement : MonoBehaviour
 {
-    public bool change;
-    public bool inCounter;
-    public Vector3 originPos;
-    public Vector3 toScene;
+    public bool moving;    //움직이는 중인가
+    public bool inCounter; //카운터 안에 있는가
+    public Vector3 originPos; //카메라 위치 초기값
+    public Vector3 toScene; //카메라 움직이는 위치
     public CameraScroll cameraScroll;
+    public InKitchenSetting inKitchenSetting;
+    public OrderPapersManager orderPapersManager;
+    public TextPopUpManager TextPopUp;
+    public Transform CounterPos;
+    public Transform KitchenPos;
+    public Image BtnImage;
+    public Sprite CounterBtnSprite;
+    public Sprite KitchenBtnSprite;
 
     private float distY;
     private float distZ;
@@ -20,39 +29,58 @@ public class CameraMovement : MonoBehaviour
         cameraScroll = GetComponent<CameraScroll>();
         distY = transform.position.y;  // Distance camera is above map
         distZ = transform.position.z;  // Distance camera is above map
+
+        
     }
     
-    public void CameraMoving(GameObject toObject)
+    public void CameraMoving()
     {
+        if (orderPapersManager.waitSelecting == true) //주문서 선택 대기 중이면 카메라 전환 불가
+        {
+            TextPopUp.OpenPopUp("완성한 주문서를 선택해주세요."); return;
+        }
         //cameraScroll.enabled = inCounter ?  true : false;
-
-        if (inCounter) {
-            cameraScroll.enabled = false;
-            transform.position = originPos;
-        }
-        else {
-        }
         inCounter = !inCounter;
 
-        change = true;
+        Transform toObject;
+        if (! inCounter) {
+            cameraScroll.enabled = false;
+            transform.position = originPos;
+            inKitchenSetting.InKitchen();
+            toObject = KitchenPos;
+            BtnImage.sprite = CounterBtnSprite;
+        }
+        else {
+            inKitchenSetting.InCounter();
+            toObject = CounterPos;
+            BtnImage.sprite = KitchenBtnSprite;
+        }
+
+        moving = true;
         Vector3 vector = new Vector3(0, 0, distZ);
-        vector.x = toObject.gameObject.GetComponent<Transform>().position.x;
-        vector.y = toObject.gameObject.GetComponent<Transform>().position.y;
+        vector.x = toObject.position.x;
+        vector.y = toObject.position.y;
         toScene = vector;
+        StartCoroutine(MoveToScene());
 
         //카운터 안이면 스크롤 활성화, 밖이면 스크롤 비활성화
     }
-    void Update()
+    IEnumerator MoveToScene()
     {
-        //카메라 빠르게 이동효과
-        if (change)
+        while (transform.position != toScene)
         {
             transform.position = Vector3.Lerp(transform.position, toScene, 0.5f);
-            if (transform.position == toScene)
-            {
-                change = false;
-                if (inCounter) cameraScroll.enabled = true;
-            }
+            yield return null;
+        }
+
+        moving = false;
+        if (inCounter)
+        {
+            cameraScroll.enabled = true;
+        }
+        else
+        {
         }
     }
+
 }

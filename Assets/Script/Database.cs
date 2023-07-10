@@ -22,14 +22,15 @@ public class Database : MonoBehaviour
         instance = this;
         BetterStreamingAssets.Initialize();
 
+    }
+
+    public void DataLoad()
+    {
         //Asset/StreamingAsset/Data 폴더
         RecipeLoad("Data/RecipeJson.json");
         AnimalsLoad("Data/AnimalsJson.json");
         DialogueLoad("Data/Dialogue.json");
         ItemLoad("Data/ItemJson.json");
-
-        State.instance.Load();
-
     }
     private void Start()
     {
@@ -57,6 +58,11 @@ public class Database : MonoBehaviour
     public ItemData GetItemData(int itemCode)
     {
         return items.Find(delegate (ItemData bk) { return bk.code == itemCode; });
+    }
+
+    public ItemData GetItemData(string itemName)
+    {
+        return items.Find(delegate (ItemData bk) { return bk.name == itemName; });
     }
 
     //동물 이름으로 해당 동물의 대화 가져오기
