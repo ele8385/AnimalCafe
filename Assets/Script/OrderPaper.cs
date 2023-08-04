@@ -49,12 +49,12 @@ public class OrderPaper : MonoBehaviour
         //animator.SetTrigger("Wait_Select");
     }
 
-    //주문서 선택 완료
+    //주문서 선택 완료 후 모든 주문서에게 실행시킴
     public void WaitEnd()
     {
-        if (OrderPapersManager.waitSelecting == false)
+        if (OrderPapersManager.waitSelecting == false) //완성 후 대기상태가 아니라면 
             animator.SetBool("WaitSelecting", false);
-        if (gameObject.activeSelf == true)
+        if (gameObject.activeSelf == true) //주문서 열려있다면 선택대기 끝
             animator.SetTrigger("Wait_End");
     }
 
@@ -80,7 +80,7 @@ public class OrderPaper : MonoBehaviour
     public void GiveDrink()
     {
         if (orderAnimal == null) return; 
-        orderAnimal.GiveDrink(cupManager.CupExport());
+        int result = orderAnimal.GiveDrink(cupManager.CupExport());
         OrderPapersManager.WaitEndOrderPapers(this);        
     }
 
