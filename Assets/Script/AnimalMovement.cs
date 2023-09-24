@@ -237,11 +237,13 @@ public class AnimalMovement : MonoBehaviour {
     public void StartOrder()
     {
         State.instance.AddOrderCount(AnimalData.code); //주문 수 증가
-        if (Camera.main.GetComponent<CameraMovement>().inCounter)
+
+        if (Camera.main.GetComponent<CameraMovement>().inCounter) //카운터 화면이면 주문풍선 켬
             balloonManager.OpenOrderBalloon(true);
+
         circleCollider.enabled = true;
-        orderPapers.MakeOrderPaper(recipe, waitNum % counterLine, this);
-        CountPos.transform.GetChild(waitNum).gameObject.GetComponent<SeatManager>().animal = this;
+        orderPapers.MakeOrderPaper(recipe, waitNum % counterLine, this); //주문서 열림
+        CountPos.transform.GetChild(waitNum).gameObject.GetComponent<SeatManager>().animal = this; //카운터 자리에 동물정보 넣기
     }
 
     //255배 해서 비교하는 이유: <Color>값 그대로 넣으면 소숫점 차이로 비교가 어긋나서 255를 곱한 뒤에 비교함.
@@ -258,22 +260,33 @@ public class AnimalMovement : MonoBehaviour {
         return convertColors;
     }
 
+    //3: 전달 실패
+    //2: 레시피 perfect
+    //1: 레시피 ok
+    //0: 색상 miss
+    //-1: 높이 miss
+    //-2: 토핑 miss
+    //-3: 휘핑 miss
+    //-4: 컵 miss
+    //-5: 그라디언트 miss
 
-    //음료 주면 true 못주면 false 반환
-    public bool GiveDrink(Drink _takeDrink)
+    public int GiveDrink(Drink _takeDrink) //result를 반환
     {
-        //맨 앞줄인가
-        if (transform.position != counterPos || waitNum > counterLine) return false;
+        //맨 앞줄이 아닌가
+        if (transform.position != counterPos || waitNum > counterLine) return 3;
         //대화 이벤트 진행 중인가
-        if (balloonManager.SpeakBalloon.activeSelf == true) return false;
+        if (balloonManager.SpeakBalloon.activeSelf == true) return 3;
 
         circleCollider.enabled = true;
         StartCoroutine(WaitCo(TakeOut, 2f));
 
         int result = CompareDrink(_takeDrink); // 0: miss 1:ok 2:perfect
-        
-        if      (result  == -1) balloonManager.OpenSpeakBalloon("뭔가 잘못 들어갔어.");
-        else if (result  == -2) balloonManager.OpenSpeakBalloon("휘핑이 이게 아니야.");
+
+        Debug.Log(result);
+
+
+        if (result  == -2) balloonManager.OpenSpeakBalloon("뭔가 잘못 들어갔어.");
+        else if (result  == -3) balloonManager.OpenSpeakBalloon("휘핑이 이게 아니야.");
         else if (result == 0)//miss
         {
             balloonManager.OpenSpeakBalloon(AnimalData.script_bad); 
@@ -282,7 +295,7 @@ public class AnimalMovement : MonoBehaviour {
         {
             State.instance.AddBuyCount(AnimalData.code);//판매 수 증가
             //OK
-            if (result == 1)  { 
+            if (result == 1)  {
                 balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
                 coinManager.AddMoney("coin", recipe.price / 2); //수익 증가
                 State.instance.AddHeart(AnimalData.code, 1);
@@ -293,6 +306,10 @@ public class AnimalMovement : MonoBehaviour {
                 balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
                 coinManager.AddMoney("coin", recipe.price); //수익 증가
                 State.instance.AddHeart(AnimalData.code, 2);
+
+            }
+            else
+            {
             }
             //레시피 등록 성공
             if (State.instance.AddRecipe(recipe))
@@ -300,7 +317,7 @@ public class AnimalMovement : MonoBehaviour {
                 //성공 이펙트
             }
         }
-        return true;
+        return result;
     }
 
     //컬러 두 가지를 비교(range만큼의 허용치)하여 일치하면 true
@@ -329,10 +346,10 @@ public class AnimalMovement : MonoBehaviour {
         //커스텀음료가 아닐 경우
         if (!custom)
         {
-            if (_takeDrink.topping != recipe.drink.topping) return -1;
-            if (_takeDrink.whipping != recipe.drink.whipping) return -2;
-            if (_takeDrink.cupNum!= recipe.drink.cupNum) return -3;
-            if (_takeDrink.gradient.SequenceEqual(recipe.drink.gradient)) return -4;
+            if (_takeDrink.topping != recipe.drink.topping) return -2;
+            if (_takeDrink.whipping != recipe.drink.whipping) return -3;
+            if (_takeDrink.cupNum!= recipe.drink.cupNum) return -4;
+            if (! _takeDrink.gradient.SequenceEqual(recipe.drink.gradient)) return -5;
             for (int i = 0; i < take.Count; i++)
             {
                 if (!CompareColor(50f, order[i], take[i])) return 0;

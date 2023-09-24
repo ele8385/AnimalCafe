@@ -20,12 +20,14 @@ public class BalloonManager : MonoBehaviour
         SpeakBalloon.SetActive(false);
         dialog = false;
     }
-    //대화 시작
+    //대사
     public void OpenSpeakBalloon(string _text)
     {
         OrderBallon.SetActive(false);
         SpeakBalloon.SetActive(true);
         SpeakBalloon.transform.Find("Text").gameObject.GetComponent<TextMesh>().text = _text;
+        //StartCoroutine(WaitClosingCo()); 이거왜있음
+
     }
     //대화 이벤트 시작
     public void OpenSpeakBalloon(string _text, bool _dialog)
@@ -52,5 +54,10 @@ public class BalloonManager : MonoBehaviour
         AnimalMovement anim = GetComponent<AnimalMovement>();
         GameObject.Find("Canvas").transform.Find("Dialogue_window").GetComponent<DialogueManager>().OpenDialogue(anim.AnimalData.code, anim, true);
         ResetBalloon();
+    }
+
+    IEnumerator WaitClosingCo() {
+        yield return new WaitForSeconds(2f);
+        gameObject.SetActive(false);
     }
 }

@@ -1,12 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class CoinManager : MonoBehaviour
 {
     private float moveSpeed = 0.1f;
     public Transform imgs;
-    public Transform text;
+    public Transform textPos;
+    public TextMeshPro text;
+    public TextMeshPro textOuter;
     public GameObject targetObj;
     public GameObject HeartUI;
 
@@ -17,7 +20,8 @@ public class CoinManager : MonoBehaviour
         gameObject.SetActive(true);
 
         //금액 텍스트 넣고 올라가는 효과
-        text.GetComponent<TextMesh>().text = "+" + string.Format("{0:#,0}", _val);
+        text.text = "+" + string.Format("{0:#,0}", _val);
+        textOuter.text = "+" + string.Format("{0:#,0}", _val);
         TextUp();
 
         //코인 이미지가 UI이미지를 향해 움직이는 효과
@@ -30,10 +34,10 @@ public class CoinManager : MonoBehaviour
     //텍스트 위치 조금 위로 설정해서 모션시작
     public void TextUp()
     {
-        Vector3 toPos = text.transform.position;
-        //toPos.y = text.transform.position.y + 0.5f;
-        text.transform.Find("TextOutline").gameObject.GetComponent<TextmeshOutline>().SetOutline();
-        StartCoroutine(MoveTo(text, toPos));
+        Vector3 toPos = textPos.transform.position;
+        toPos.y = text.transform.position.y + 0.5f;
+        //text.transform.Find("TextOutline").gameObject.GetComponent<TextmeshOutline>().SetOutline(); 프로로 바꿔서 아웃라인기능대체
+        StartCoroutine(MoveTo(textPos, toPos));
     }
 
     public void CoinUp(string _type)

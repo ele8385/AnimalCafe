@@ -5,6 +5,7 @@ using UnityEngine;
 using LitJson;
 using System;
 using System.Linq;
+using Better.StreamingAssets;
 
 public class Database : MonoBehaviour
 {

@@ -32,11 +32,12 @@ public class DrinkManager : MonoBehaviour {
         if (drink.topping != "none") toppingSprite.sprite = Resources.Load<Sprite>(path + "/Topping_" + drink.topping); else toppingSprite.sprite = null;
         if(outline != null) outline.SetOutlineDrink();
 
+        //Debug.Log(drink.colors.Count + "," + j);Debug.Log(drink.colors.Count + "," + j);  
         //액체에 색상넣기
         for (int j = 0; j < dropMaxNum; j++)
         {
-            if (j < drink.colors.Count) { Debug.Log(drink.colors.Count + "," + j); LiquidDiv[j].color = drink.colors[j]; }
-            else { Debug.Log(drink.colors.Count + "," + j);  LiquidDiv[j].color = new Color(1, 1, 1, 0);  }
+            if (j < drink.colors.Count) {  LiquidDiv[j].color = drink.colors[j]; }
+            else { LiquidDiv[j].color = new Color(1, 1, 1, 0);  }
         }
         cupHeight = 0; //이거해야할지..
 
