@@ -237,11 +237,13 @@ public class AnimalMovement : MonoBehaviour {
     public void StartOrder()
     {
         State.instance.AddOrderCount(AnimalData.code); //주문 수 증가
-        if (Camera.main.GetComponent<CameraMovement>().inCounter)
+
+        if (Camera.main.GetComponent<CameraMovement>().inCounter) //카운터 화면이면 주문풍선 켬
             balloonManager.OpenOrderBalloon(true);
+
         circleCollider.enabled = true;
-        orderPapers.MakeOrderPaper(recipe, waitNum % counterLine, this);
-        CountPos.transform.GetChild(waitNum).gameObject.GetComponent<SeatManager>().animal = this;
+        orderPapers.MakeOrderPaper(recipe, waitNum % counterLine, this); //주문서 열림
+        CountPos.transform.GetChild(waitNum).gameObject.GetComponent<SeatManager>().animal = this; //카운터 자리에 동물정보 넣기
     }
 
     //255배 해서 비교하는 이유: <Color>값 그대로 넣으면 소숫점 차이로 비교가 어긋나서 255를 곱한 뒤에 비교함.
@@ -268,9 +270,9 @@ public class AnimalMovement : MonoBehaviour {
     //-4: 컵 miss
     //-5: 그라디언트 miss
 
-    public int GiveDrink(Drink _takeDrink) 
+    public int GiveDrink(Drink _takeDrink) //result를 반환
     {
-        //맨 앞줄인가
+        //맨 앞줄이 아닌가
         if (transform.position != counterPos || waitNum > counterLine) return 3;
         //대화 이벤트 진행 중인가
         if (balloonManager.SpeakBalloon.activeSelf == true) return 3;

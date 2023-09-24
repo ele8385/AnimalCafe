@@ -26,7 +26,7 @@ public class BalloonManager : MonoBehaviour
         OrderBallon.SetActive(false);
         SpeakBalloon.SetActive(true);
         SpeakBalloon.transform.Find("Text").gameObject.GetComponent<TextMesh>().text = _text;
-        StartCoroutine(WaitClosingCo());
+        //StartCoroutine(WaitClosingCo()); 이거왜있음
 
     }
     //대화 이벤트 시작

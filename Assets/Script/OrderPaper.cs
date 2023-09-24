@@ -80,7 +80,13 @@ public class OrderPaper : MonoBehaviour
     public void GiveDrink()
     {
         if (orderAnimal == null) return; 
-        int result = orderAnimal.GiveDrink(cupManager.CupExport());
+
+        //주문 판별
+        int result = orderAnimal.GiveDrink(cupManager.CupExport()); //음료를 동물에게 내보낸 후의 결과값
+
+        if(result < 1) animator.SetInteger("result", 0); //0 이하는 모두 miss(0) 처리
+        else animator.SetInteger("result", result);
+
         OrderPapersManager.WaitEndOrderPapers(this);        
     }
 
