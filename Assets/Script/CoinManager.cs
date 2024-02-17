@@ -18,17 +18,7 @@ public class CoinManager : MonoBehaviour
     public void AddMoney(string _type, int _val)
     {
         gameObject.SetActive(true);
-
-        //금액 텍스트 넣고 올라가는 효과
-        text.text = "+" + string.Format("{0:#,0}", _val);
-        textOuter.text = "+" + string.Format("{0:#,0}", _val);
-        TextUp();
-
-        //코인 이미지가 UI이미지를 향해 움직이는 효과
-        CoinUp(_type);
-
-        //금액증가
-        State.instance.PlusMoney(_val);
+        StartCoroutine(AddMoneyCo(_type, _val));
     }
 
     //텍스트 위치 조금 위로 설정해서 모션시작
@@ -65,6 +55,23 @@ public class CoinManager : MonoBehaviour
     }
 
     //코인 하나씩 코루틴 호출
+    IEnumerator AddMoneyCo(string _type, int _val)
+    {
+        yield return new WaitForSeconds(2f);
+
+        textPos.gameObject.SetActive(true);
+        //금액 텍스트 넣고 올라가는 효과
+        text.text = "+" + string.Format("{0:#,0}", _val);
+        textOuter.text = "+" + string.Format("{0:#,0}", _val);
+        TextUp();
+
+        //코인 이미지가 UI이미지를 향해 움직이는 효과
+        CoinUp(_type);
+
+        //금액증가
+        State.instance.PlusMoney(_val);
+    }
+
     IEnumerator MoveImgChild(Vector3 moveToPos)
     {
         for (int i = 0; i < imgs.childCount; i++)

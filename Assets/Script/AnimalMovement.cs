@@ -278,13 +278,9 @@ public class AnimalMovement : MonoBehaviour {
         if (balloonManager.SpeakBalloon.activeSelf == true) return 3;
 
         circleCollider.enabled = true;
-        StartCoroutine(WaitCo(TakeOut, 2f));
 
         int result = CompareDrink(_takeDrink); // 0: miss 1:ok 2:perfect
-
-        Debug.Log(result);
-
-
+        
         if (result  == -2) balloonManager.OpenSpeakBalloon("뭔가 잘못 들어갔어.");
         else if (result  == -3) balloonManager.OpenSpeakBalloon("휘핑이 이게 아니야.");
         else if (result == 0)//miss
@@ -298,6 +294,7 @@ public class AnimalMovement : MonoBehaviour {
             if (result == 1)  {
                 balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
                 coinManager.AddMoney("coin", recipe.price / 2); //수익 증가
+
                 State.instance.AddHeart(AnimalData.code, 1);
             }
             //perfect
@@ -317,6 +314,10 @@ public class AnimalMovement : MonoBehaviour {
                 //성공 이펙트
             }
         }
+
+        StartCoroutine(WaitCo(balloonManager.ResetBalloon, 2f)); //2초 뒤에 말풍선OFF
+        StartCoroutine(WaitCo(TakeOut, 3f)); //3초 뒤에 이동 시작
+
         return result;
     }
 
@@ -373,8 +374,10 @@ public class AnimalMovement : MonoBehaviour {
         return 0;
     }
 
-    public void TakeOut()
+    public void TakeOut() //음료 받고 코멘트 날린 뒤 이동할 때 호출
     {
+        //balloonManager.ResetBalloon(); //말풍선 끄기
+
         exitRoute = Random.Range(-1, 3);
         //-1: 문으로, 0~n: n번 테이블로, -2: 구경
 
@@ -394,7 +397,6 @@ public class AnimalMovement : MonoBehaviour {
             else seat.full = true; //tablePos = new Vector3(seat.transform.position.x, seat.transform.position.y + 1, seat.transform.position.z - 0.1f
         }
 
-        balloonManager.ResetBalloon();
 
         //뒷자리 동물있으면 앞줄로 이동
         UpdateWaitNum();

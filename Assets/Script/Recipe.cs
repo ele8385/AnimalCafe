@@ -51,10 +51,12 @@ public class Recipe //등록된 음료메뉴
     public string TextIngredient(List<Ingredient> ingredients)
     {
         string text = "";
+        int num = 0;
 
-        for (int j = 0; j < ingredients.Count; j++) //레시피 목록 숫자
+        for (int j = 0; j < ingredients.Count; j++) //레시피 리스트 인덱스
         {
-            text += (j + 1) + ". [";
+            num++;                       //레시피 목차 번호
+            text += num + ". [";                //"1. ["
             int[] arr = ingredients[j].ingerdientArr;
 
             for (int i = 0; i < arr.Length; i++) //각 성분별
@@ -72,13 +74,13 @@ public class Recipe //등록된 음료메뉴
                     case 7: text += "우유 " + arr[i] + " : "; break;
                 }
             }
-            text.Remove(text.Length - 2); // 끝에 ':' 지우기
+           text =  text.Remove(text.Length - 3); // 끝에 ':' 지우기
             text += "] 비율로 " + arr[8] + "칸 담기\n";
 
             if (j == ingredients.Count - 1) break; //마지막 라인이면 탈출
-            j++;
-            if (arr[9] == 0) { text += (j + 1) + ". 층층 파우더 넣기\n"; }
-            else { text += (j + 1) + ". 그라데이션 파우더 넣기\n"; }
+            num++;
+            if (arr[9] == 0) { text += num + ". 층층 파우더 넣기\n"; }
+            else { text += num + ". 그라데이션 파우더 넣기\n"; }
         }
         return text;
 

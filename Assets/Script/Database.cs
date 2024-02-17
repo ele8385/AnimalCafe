@@ -35,6 +35,7 @@ public class Database : MonoBehaviour
     }
     private void Start()
     {
+
     }
     public AnimalData GetAnimalData(int animalCode)
     {

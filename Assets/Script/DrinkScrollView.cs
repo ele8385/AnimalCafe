@@ -41,9 +41,9 @@ public class DrinkScrollView : MonoBehaviour
 
                 GameObject Unit = Instantiate<GameObject>(prefab, content.transform);
                 RectTransform rectTransform = Unit.GetComponent<RectTransform>();
-                //RecipeUnit recipeUnit = Unit.GetComponent<RecipeUnit>();
+                RecipeManager recipeUnit = Unit.gameObject.transform.Find("Recipe").gameObject.GetComponent<RecipeManager>();
                 Recipe recipe = State.instance.myState.myRecipe[index];
-                //recipeUnit.MakeRecipe(recipe);
+                recipeUnit.MakeRecipe(recipe);
                 
                 if      (i == 0) rectTransform.anchoredPosition = new Vector2(-xDistance, yDistance * j - 165);
                 else if (i == 1) rectTransform.anchoredPosition = new Vector2(0, yDistance * j - 165);
