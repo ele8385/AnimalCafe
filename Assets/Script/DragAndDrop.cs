@@ -39,6 +39,10 @@ public class DragAndDrop : MonoBehaviour {
                         originPos = target.transform.position;
                         screenSpace = Camera.main.WorldToScreenPoint(target.transform.position); //오브젝트 월드좌표 구하기
                         offset = target.transform.position - Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, screenSpace.z));
+                        if(target.tag == "Color")
+                        {
+                            AudioManager.instance.PlaySFX("Click_Color");
+                        }
                     }
                     //롱클릭오브젝트 누르고있으면창켜기
                     else if(target.layer == 10)
@@ -50,6 +54,7 @@ public class DragAndDrop : MonoBehaviour {
                     {
                         target.GetComponent<BoxCollider2D>().enabled = false;
                         cup.ThrowAwayDrink();
+
                     }
                     //팁 클릭
                     else if (target.tag == "Coin")

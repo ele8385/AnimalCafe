@@ -12,18 +12,26 @@ public class ItemSetting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        ItemObjectSet();
+
     }
     public void ItemObjectSet()
     {
         mood = new List<string>();
         ItemObjectSet("Wallpaper");
         ItemObjectSet("Floor");
+
     }
 
     public void ItemObjectSet(string type)
     {
+        if (! State.instance.myState.applyItem.ContainsKey(type))
+        {
+            Debug.Log(1); return;
+        }
+
         ItemData itemData = State.instance.myState.applyItem[type]; //해당 타입의 적용아이템 딕셔너리 값인 아이템데이터를 가져옴
+        if (itemData == null) { Debug.Log(0); return; }
         mood.AddRange(itemData.mood);
 
         //스프라이트 교체

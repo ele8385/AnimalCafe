@@ -33,12 +33,20 @@ public class DrinkManager : MonoBehaviour {
         if(outline != null) outline.SetOutlineDrink();
 
         //Debug.Log(drink.colors.Count + "," + j);Debug.Log(drink.colors.Count + "," + j);  
-        //액체에 색상넣기
-        for (int j = 0; j < dropMaxNum; j++)
+        try
         {
-            if (j < drink.colors.Count) {  LiquidDiv[j].color = drink.colors[j]; }
-            else { LiquidDiv[j].color = new Color(1, 1, 1, 0);  }
+            //액체에 색상넣기
+            for (int j = 0; j < dropMaxNum; j++)
+            {
+                if (j < drink.colors.Count) { LiquidDiv[j].color = drink.colors[j]; }
+                else { LiquidDiv[j].color = new Color(1, 1, 1, 0); }
+            }
         }
+        catch
+        {
+            Debug.Log("왜오류뜨다가말음");
+        }
+
         cupHeight = 0; //이거해야할지..
 
         //액체 높이에 따른 조정

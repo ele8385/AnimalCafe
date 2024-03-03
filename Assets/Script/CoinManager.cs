@@ -12,13 +12,28 @@ public class CoinManager : MonoBehaviour
     public TextMeshPro textOuter;
     public GameObject targetObj;
     public GameObject HeartUI;
+    public List<Vector3> coinsPos = new List<Vector3>();
 
     //_type: coin이나 cherry UI오브젝트 네임
     //type의 재화를 val의 금액만큼 더함
-    public void AddMoney(string _type, int _val)
+    public void AddCoin(int _val)
     {
+        if (_val == 0) return; //0원이면 종료
+
         gameObject.SetActive(true);
-        StartCoroutine(AddMoneyCo(_type, _val));
+        //StartCoroutine(AddCoinCo("coin", _val));
+        
+        textPos.gameObject.SetActive(true);
+        //금액 텍스트 넣고 올라가는 효과
+        text.text = "+" + string.Format("{0:#,0}", _val);
+        textOuter.text = "+" + string.Format("{0:#,0}", _val);
+        TextUp();
+
+        //코인 이미지가 UI이미지를 향해 움직이는 효과
+        CoinUp("coin");
+
+        //금액증가
+        State.instance.PlusMoney(_val);
     }
 
     //텍스트 위치 조금 위로 설정해서 모션시작
@@ -38,8 +53,11 @@ public class CoinManager : MonoBehaviour
             targetObj = GameObject.Find("Canvas").transform.Find("Top").transform.Find("Cherry").transform.Find("Image").gameObject;
         else Debug.Log("화폐오류");
 
+        foreach (Transform a in imgs)
+        {
+            coinsPos.Add(a.transform.position);
+        }
         Vector3 toPos = PosSet();
-        
         StartCoroutine(MoveImgChild(toPos));
     }
 
@@ -55,21 +73,10 @@ public class CoinManager : MonoBehaviour
     }
 
     //코인 하나씩 코루틴 호출
-    IEnumerator AddMoneyCo(string _type, int _val)
+    IEnumerator AddCoinCo(string _type, int _val)
     {
         yield return new WaitForSeconds(2f);
 
-        textPos.gameObject.SetActive(true);
-        //금액 텍스트 넣고 올라가는 효과
-        text.text = "+" + string.Format("{0:#,0}", _val);
-        textOuter.text = "+" + string.Format("{0:#,0}", _val);
-        TextUp();
-
-        //코인 이미지가 UI이미지를 향해 움직이는 효과
-        CoinUp(_type);
-
-        //금액증가
-        State.instance.PlusMoney(_val);
     }
 
     IEnumerator MoveImgChild(Vector3 moveToPos)
@@ -103,6 +110,12 @@ public class CoinManager : MonoBehaviour
 
         _transform.position = originPos;
         _transform.localScale = originScale;
+        int i = 0;
+        foreach (Transform a in imgs)
+        {
+            a.transform.position = coinsPos[i];
+            i++;
+        }
 
         _transform.gameObject.SetActive(false);
     }

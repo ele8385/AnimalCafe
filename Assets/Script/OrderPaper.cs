@@ -13,7 +13,6 @@ public class OrderPaper : MonoBehaviour
     public Animator animator;
     public CupManager cupManager;
     public RecipeInfo recipeInfo;
-    public CameraMovement cameraMovement;
     public bool open;
 
     //주문서 레시피 넣어서 만들기
@@ -31,14 +30,30 @@ public class OrderPaper : MonoBehaviour
     public void ViewOrder()
     {
         if (orderRecipe.name == "") return;
-        if (!cameraMovement.inCounter) //In Kitchen
+        
+
+        // SetActive 바꾸면 애니메이션 오류 심해서 Image 알파값으로 껐다 켜기 구현
+        Image[] images = GetComponentsInChildren<Image>(true); // etComponentsInChildren을 사용해 모든 Image 컴포넌트를 찾고 색상을 변경
+        foreach (Image img in images)
         {
-            gameObject.SetActive(open);
-            if (OrderPapersManager.waitSelecting == true)
-                animator.SetBool("WaitSelecting", true);
-            if (open)
-                animator.Play("OpenStart");
+            Color color = img.color;
+            if (open && !OrderPapersManager.cameraMovement.inCounter)
+            {
+                color.a = 1f;
+                orderName.enabled = true;
+            }
+            else
+            {
+                color.a = 0f;
+                orderName.enabled = false;
+            }
+            img.color = color;
         }
+
+        if (OrderPapersManager.waitSelecting == true)
+            animator.SetBool("WaitSelecting", true);
+        if (open)
+            animator.Play("OpenStart");
     }
 
     //주문서 선택 대기 중 바들바들 떠는 모션
@@ -58,6 +73,13 @@ public class OrderPaper : MonoBehaviour
             animator.SetTrigger("Wait_End");
     }
 
+
+    //주문서 심사 효과 끝날 때 카메라 전환 잠금 해제 / 애니메이션에서 이벤트로 실행
+    public void EndOrderPaperEffect()
+    {
+        OrderPapersManager.EndOrderPaperEffect();
+    }
+
     //주문서 클릭
     public void ClickOrderPaper()
     {
@@ -71,9 +93,11 @@ public class OrderPaper : MonoBehaviour
         }
     }
 
+
     //주문서 정보창 오픈
     public void OpenRecipeInfo()
     {
+        if(open && !OrderPapersManager.cameraMovement.inCounter)
         recipeInfo.OpenRecipeInfo(orderRecipe);
     }
 

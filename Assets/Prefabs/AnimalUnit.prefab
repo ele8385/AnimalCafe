@@ -558,6 +558,11 @@ MonoBehaviour:
     moodType: 0
     moodCondition: 0
     temperatureCondition: 0
+  Thumnail: {fileID: 1648396511863310912}
+  Shadow: {fileID: 4141995266367335420}
+  Hearts: {fileID: 4889027792217788845}
+  AnimalName: {fileID: 8586316315143530108}
+  Hint: {fileID: 8829826010409526190}
 --- !u!1 &4847799144330820383
 GameObject:
   m_ObjectHideFlags: 0
@@ -644,7 +649,7 @@ GameObject:
   - component: {fileID: 3087388967401062988}
   - component: {fileID: 6385099652707785423}
   m_Layer: 5
-  m_Name: Heart
+  m_Name: Hearts
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -714,7 +719,7 @@ GameObject:
   - component: {fileID: 3688216043430260622}
   - component: {fileID: 7894485151297780185}
   m_Layer: 5
-  m_Name: Thumnail
+  m_Name: Mask
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1012,7 +1017,7 @@ GameObject:
   - component: {fileID: 5686155558882641755}
   - component: {fileID: 1648396511863310912}
   m_Layer: 5
-  m_Name: Img
+  m_Name: Thumnail
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

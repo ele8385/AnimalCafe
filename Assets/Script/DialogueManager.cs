@@ -14,7 +14,7 @@ public class DialogueManager : MonoBehaviour
     public GameObject btns;
     public AnimalMovement ThisAnimal;
     public Button btn1, btn2, btn3, btn4;
-    public Animal AnimalData;
+    public AnimalData AnimalData;
 
     public int lineNum = 0;
 
@@ -34,31 +34,40 @@ public class DialogueManager : MonoBehaviour
     }
 
     //주문하는 대화
-    public void OpenDialogue(int _code, AnimalMovement _animal, bool _ordering)
+    public void OpenDialogue(AnimalMovement animalMovement, bool _ordering)
     {
         ordering = _ordering;
-        OpenDialogue(_code, _animal);
+        OpenDialogue(animalMovement);
     }
 
     //대화창 열기
-    public void OpenDialogue(int _code, AnimalMovement _animal)
+    public void OpenDialogue(AnimalMovement animalMovement)
     {
         GameObject.Find("Canvas").gameObject.GetComponent<TouchLock>().SetOn(); //스크롤터치잠금
-
-        AnimalData = State.instance.GetMyAnimal(_code);
-        ThisAnimal = _animal;
         gameObject.SetActive(true);
-        animalName.text = AnimalData.name;
-        animalImg.sprite = _animal.transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>().sprite;
 
-        if (ordering) PrintOrder();  //주문 대사
-        else  //이벤트 대사
+        AnimalData = Database.instance.GetAnimalData(animalMovement.AnimalData.code);
+
+        //처음 만난 동물이면 myAnimals에 추가
+        Animal animal = State.instance.GetMyAnimal(AnimalData.code);
+        if (animal == null) {
+            animal = State.instance.AddMyAnimal(AnimalData.code);
+        } 
+
+        ThisAnimal = animalMovement;
+        animalName.text = AnimalData.name;
+        animalImg.sprite = animalMovement.transform.Find("Sprite").gameObject.GetComponent<SpriteRenderer>().sprite;
+
+        //주문 대사
+        if (ordering) PrintOrder();
+        //이벤트 대사
+        else
         {
             try
             {
                 //line(대사)에 나눠쓰기 기호($)있으면 문자열 분할하여 리스트로 저장
                 string filename = System.Text.RegularExpressions.Regex.Replace(AnimalData.name, @"\d", "");
-                script = Database.instance.GetDial(filename).scripts[AnimalData.dialNum];
+                script = Database.instance.GetDial(filename).scripts[animal.dialNum];
                 lines = script.line?.Split('$').ToList();
             }
             catch (DivideByZeroException err)
@@ -169,11 +178,15 @@ public class DialogueManager : MonoBehaviour
         endWaitng = false;
         typing = false;
         lineNum++;
+        AudioManager.instance.StopSFX("Typing");
+
     }
 
     IEnumerator PrintText()
     {
         typing = true;
+        AudioManager.instance.PlaySFX("Typing");
+
         //글자 하나씩
         for (int j = 0; j < printLine.Length; j++)
         {
@@ -183,6 +196,7 @@ public class DialogueManager : MonoBehaviour
         yield return new WaitForSeconds(0.4f);
         typing = false;
         lineNum++;
+        AudioManager.instance.StopSFX("Typing");
     }
     /*
   

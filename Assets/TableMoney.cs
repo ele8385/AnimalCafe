@@ -4,28 +4,22 @@ using UnityEngine;
 
 public class TableMoney : MonoBehaviour 
 {
-    public GameObject text;
-    public string type;
-    public int value;
-    public List<GameObject> Coins;
+    public GameObject TextObj;
     public CoinManager coinManager;
+    public int value;
     
-    public void MakeTableMoney(string _obj, int _val)
+    //테이블에 팁 두기
+    public void MakeTableMoney(int _val)
     {
         gameObject.SetActive(true);
-        text.SetActive(false);
-        type = _obj;
+        TextObj.gameObject.SetActive(false);
         value = _val;
-        foreach (GameObject i in Coins)
-        {
-            i.SetActive(true);
-        }
     }
-    //_obj: coin이나 cherry UI오브젝트 네임
-    //테이블 머니 클릭 시
+    //테이블 위 팁 클릭 시
     public void ClickMoney()
     {
-        coinManager.AddMoney(type, value);
+        TextObj.gameObject.SetActive(true);
+        coinManager.AddCoin(value);
 
         //테이블머니 누르면 해당 좌석 비우기
         GameObject Chair = gameObject.transform.parent.gameObject;

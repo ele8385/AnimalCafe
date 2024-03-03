@@ -14,6 +14,7 @@ public class ObjectMove : MonoBehaviour
         originPos = transform.position;
         toPos = new Vector3(x, transform.position.y, transform.position.z);
         StartCoroutine("moveBlockTime");
+        AudioManager.instance.PlaySFX("Click_MoveKitchen");
     }
     private IEnumerator moveBlockTime()
     {

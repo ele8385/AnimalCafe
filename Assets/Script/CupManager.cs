@@ -48,6 +48,8 @@ public class CupManager : MonoBehaviour
         }
     }
 
+
+    //완성버튼클릭
     public void ClickMakeBtn()
     {
         if (mixColor.dropNum < 1) { TextPopUp.OpenPopUp("컵이 비어서 완성할 수 없어요.", popupPosY); return; }
@@ -58,6 +60,7 @@ public class CupManager : MonoBehaviour
             complate = true;
             animator.SetTrigger("CapClose");
             orderPapersManager.WaitSelectOrderPapers();
+            AudioManager.instance.PlaySFX("Click_DrinkMake");
         }
     }
 
@@ -103,7 +106,7 @@ public class CupManager : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D col)
     {
         //컵에 재료 닿으면 기울어짐
-        if (col.gameObject.layer == 9) col.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 30));
+        if (col.gameObject.layer == 9) col.gameObject.GetComponent<ClickChange>().Change2Img();
         if (!moving && col.gameObject.tag != "Color" && !clickLock)
         {
             mixColor.DroppingEtc(col);
@@ -113,7 +116,9 @@ public class CupManager : MonoBehaviour
     {
         clickLock = false;
         //컵에 재료 벗어나면 원상복귀
-        if (col.gameObject.layer == 9) col.gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 0));
+        if (col.gameObject.layer == 9) col.gameObject.GetComponent<ClickChange>().GetbackImg();
+        //AudioManager.instance.StopSFX("Cup_Pour");
+
     }
 
     private void OnTriggerStay2D(Collider2D col)

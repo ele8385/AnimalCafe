@@ -20,6 +20,7 @@ public class InKitchenSetting : MonoBehaviour
     {
         animalManager.OpenMiniBalloon(true);
         InKitchenUI.SetActive(false);
+        orderPapersManager.ViewOrderPapers();
     }
 
     public void InKitchen()

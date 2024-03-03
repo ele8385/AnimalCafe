@@ -15,6 +15,7 @@ public class RecipeInfo : MonoBehaviour
         gameObject.SetActive(true);
         recipeManager.MakeRecipe(recipe);
         touchLock.SetOn();
+        AudioManager.instance.PlaySFX("Order_Info");
     }
     public void CloseRecipeInfo()
     {

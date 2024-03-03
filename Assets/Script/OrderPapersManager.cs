@@ -7,11 +7,13 @@ public class OrderPapersManager : MonoBehaviour
     public List<OrderPaper> orderPaper;
     public CameraMovement cameraMovement;
     public bool waitSelecting; //컵 완성 누른 뒤 대기 상태
+    public bool endOrderPaperEffect; //주문서 심사 효과 진행 상태
     
 
     public void MakeOrderPaper(Recipe orderRecipe, int index, AnimalMovement _animal)
     {
         orderPaper[index].MakeOrder(orderRecipe, _animal);
+        AudioManager.instance.PlaySFX("Order_Open");
     }
     //주문서 보이기
     public void ViewOrderPapers()
@@ -22,6 +24,7 @@ public class OrderPapersManager : MonoBehaviour
     public void WaitSelectOrderPapers()
     {
         waitSelecting = true;
+        endOrderPaperEffect = true;
         foreach (OrderPaper order in orderPaper)
         {
             order.WaitSelect();
@@ -39,15 +42,37 @@ public class OrderPapersManager : MonoBehaviour
             order.WaitEnd();
         }
     }
+    
+    //주문서 심사 효과 끝날 때 카메라 전환 잠금 해제 / 애니메이션에서 이벤트로 실행
+    public void EndOrderPaperEffect()
+    {
+        StartCoroutine("EndOrderPaperEffectCo");
+    }
 
+    //약간의 시간차를 두고 주문서 차례대로 펼치기
     IEnumerator ViewOrderPapersCo()
     {
-        foreach (OrderPaper order in orderPaper)
+        if (! cameraMovement.inCounter)
         {
-            order.ViewOrder();
-            yield return new WaitForSeconds(0.03f);
-
+            foreach (OrderPaper order in orderPaper)
+            {
+                order.ViewOrder();
+                yield return new WaitForSeconds(0.04f);
+            }
         }
+        else
+        {
+            foreach (OrderPaper order in orderPaper)
+            {
+                order.ViewOrder();
+            }
+        }
+    }
+
+    IEnumerator EndOrderPaperEffectCo()
+    {
+        yield return new WaitForSeconds(0.5f);
+          endOrderPaperEffect = false;
     }
 
 }

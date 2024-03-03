@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using UnityEngine;
 using UnityEngine.UI;
@@ -47,7 +48,17 @@ public class State : MonoBehaviour {
 
     private void Awake()
     {
-        instance = this;
+        // 싱글턴 패턴 구현
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject); // 씬이 변경되어도 파괴되지 않음
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         filePath = Application.persistentDataPath + "/MyStateJson.json";
         myState = new MyState();
         //Load(); 동물과 음료 배열 길이 불러오기 위해 Database에서 호출
@@ -60,7 +71,6 @@ public class State : MonoBehaviour {
     void Start () {
         MoneyText = GameObject.Find("Canvas").transform.Find("Top").transform.Find("Money").transform.Find("Text").GetComponent<Text>();
         Print(MoneyText);
-        //ItemSetting.ItemObjectSet();
     }
 
     public void Print(Text _text)
@@ -68,18 +78,29 @@ public class State : MonoBehaviour {
         _text.text = string.Format("{0:#,0}", myState.nowMoney);
     }
 
-    //동물코드로 동물데이터 가져오기
+    //동물코드로 myAnimals에서 동물데이터 가져오기
     public Animal GetMyAnimal(int _code)
     {
         return myState.myAnimals.Find(delegate (Animal bk) { return bk.code == _code; });
     }
-    //동물이름으로 MyAnimal객체 가져오기
+    //동물이름으로 myAnimals에서 객체 가져오기
     public Animal GetMyAnimal(string _name)
     {
-        int code = myState.myAnimals.FindIndex(item => item.name.Equals(_name));
-        return myState.myAnimals[code];
+        return myState.myAnimals.Find(delegate (Animal bk) { return bk.name == _name; });
     }
-    //코드로 Item 객체 가져오기
+
+    //레시피코드로 myRecipe 객체 가져오기
+    public Recipe GetMyRecipe(int _code)
+    {
+        return myState.myRecipe.Find(delegate (Recipe bk) { return bk.code == _code; });
+    }
+    //레시피이름으로 myRecipe 객체 가져오기
+    public Recipe GetMyRecipe(string _name)
+    {
+        return myState.myRecipe.Find(delegate (Recipe bk) { return bk.name == _name; });
+    }
+
+    //코드로 myItems에서 Item 객체 가져오기
     public Item GetMyItem(int _code)
     {
         return myState.myItems.Find(delegate (Item bk) { return bk.code == _code; });
@@ -98,58 +119,90 @@ public class State : MonoBehaviour {
         return recipe;
     }
     
+    //myAnimals에 Animal 추가 //첫 대화이벤트 실행 시 호출
+    public Animal AddMyAnimal(int code)
+    {
+        myState.myAnimals.Add(new Animal(code));
+        return GetMyAnimal(code);
+    }
 
-    
-    //동물의 음료구매 수 5씩 증가할 때마다 이벤트 트루 리턴
+    //동물의 음료구매 수 5씩 증가할 때마다 이벤트 트루 리턴 //수치 바꿀 거면 GetHeartStep도 수정 필요
     public bool GetBoolEvent(int code)
     {
-        if ((myState.myAnimals[code].orderCount % (myState.maxHeart / 5f)) == 0) return true;  
-        else return false; //아닐 땐 -1 리턴
+        if (GetMyAnimal(code) == null) return true;
+
+        if (GetMyAnimal(code).heart == 0 ||
+            GetMyAnimal(code).heart == 5 ||
+            GetMyAnimal(code).heart == 20 ||
+            GetMyAnimal(code).heart == 50 ||
+            GetMyAnimal(code).heart == 100 ||
+            GetMyAnimal(code).heart == 200
+            )
+            return true;
+        else return false;
     }
     //해당 동물의 주문수 증가
     public void AddOrderCount(int code)
     {
-        Animal AnimalData = GetMyAnimal(code);
-        AnimalData.orderCount ++;
+        if (GetMyAnimal(code) == null) myState.myAnimals.Add(GetMyAnimal(code)); ;
+        GetMyAnimal(code).orderCount ++;
         Save();
     }
     //해당 동물의 구매수 증가
     public void AddBuyCount(int code)
     {
-        Animal AnimalData = GetMyAnimal(code);
-        AnimalData.buyCount++;
-        if (AnimalData.buyCount == 1) {
-            textPopUp.OpenPopUp("'" + AnimalData.name + "'" + " 손님이 수첩에 추가되었어요.", -381f, "notice", AnimalData.name);
+        GetMyAnimal(code).buyCount++;
+
+        //수첩에 등록 팝업
+        if (GetMyAnimal(code).buyCount == 1) {
+            textPopUp.OpenPopUp("'" + GetMyAnimal(code).name + "'" + " 손님이 수첩에 추가되었어요.", -381f, "notice", GetMyAnimal(code).name);
         }
         Save();
     }
     //현재 대화 넘버 수정
     public void AddDialNum(int code, int dialNum)
     {
-        myState.myAnimals[code].dialNum = dialNum;
+        GetMyAnimal(code).dialNum = dialNum;
         Save();
     }
     //호감도 적립
     public void AddHeart(int code, int heart)
     {
-        if (myState.myAnimals[code].heart > myState.maxHeart) return; //최대치 넘음
-        myState.myAnimals[code].heart += heart;
-        if (myState.myAnimals[code].heart < 0) myState.myAnimals[code].heart = 0; //음수면 0으로
+        if(GetMyAnimal(code) == null) { GetMyAnimal(code).heart += heart; } //주문수 0이라 아직 myAnimals에 생성 안됐는데 호감도를 어케올림
+        else
+        {
+            if (GetMyAnimal(code).heart > myState.maxHeart) return; //최대치 넘음
+            if (GetMyAnimal(code).heart < 0) return; //음수일 때도 있나
+            GetMyAnimal(code).heart += heart;
+        }
+        
 
         Save();
     }
-    //호감도 단계 가져오기
-    public float GetHeartStep(int code)
+    //호감도 단계 가져오기 //수치 바꿀 거면 GetBoolEvent도 수정 필요
+    public int GetHeartStep(int code)
     {
-        return myState.myAnimals[code].heart / (myState.maxHeart / 5);
+        int heart = GetMyAnimal(code).heart;
+        int step = 0;
+
+        if (heart < 5) { step = 0; }
+        else if (heart < 20) { step = 1; }
+        else if (heart < 50) { step = 2; }
+        else if (heart < 100) { step = 3; }
+        else if (heart < myState.maxHeart) { step = 4; }
+        else if (heart >= myState.maxHeart) { step = 5; }
+        else { step = 0; Debug.Log("호감도오류"); }
+        return step;
     }
 
 
     //레시피 습득 성공여부 반환
     public bool AddRecipe(Recipe _recipe)
     {
-        //중복 레시피면 false
-        if (myState.myRecipe.Contains(_recipe)) return false;
+        bool check = myState.myRecipe.Exists(a => a.code == _recipe.code);
+
+        //중복 레시피면 false 반환
+        if (check) return false;
         else
         {
             myState.myRecipe.Add(_recipe);
@@ -167,6 +220,7 @@ public class State : MonoBehaviour {
         {
             CountEffet(myState.nowMoney + val, MoneyText);
             myState.totalMoney += val;
+            AudioManager.instance.PlaySFX("Plus_Money");
         }
         else
         {
@@ -180,7 +234,7 @@ public class State : MonoBehaviour {
         if(myState.nowMoney > price) //가격보다 현재 돈이 크면 돈 차감
         {
             myState.nowMoney -= price;
-            Debug.Log(price + "차감");
+            AudioManager.instance.PlaySFX("Minus_Money");
         }
         else // 돈 부족
         {
@@ -207,10 +261,10 @@ public class State : MonoBehaviour {
     public bool ApplyInteriorItem(ItemData itemData)
     {
         //적용하려는 아이템이 보유 아이템 목록에 없다면 추가
-        if (GetMyItem(itemData.code) == null) { myState.myItems.Add(new Item(itemData.code));  }
+        if (GetMyItem(itemData.code) == null) { myState.myItems.Add(new Item(itemData.code));}
 
 
-        //해당 아이템 타입이 이미 존재하면 바꾸고 없으면 만들기
+        //해당 아이템 타입이 존재하면 바꿈
         if (myState.applyItem.ContainsKey(itemData.type))
         {
             //기존 아이템 적용 해제
@@ -219,10 +273,12 @@ public class State : MonoBehaviour {
             GetMyItem(_itemData.code).apply = false;
             myState.applyItem[itemData.type] = itemData;
         }
-        else {  myState.applyItem.Add(itemData.type, itemData); Debug.Log(itemData.name); }
+        //해당 아이템 타입이 없으면 키 새로 생성
+        else {  myState.applyItem.Add(itemData.type, itemData); }
 
         GetMyItem(itemData.code).apply = true;
-        
+        ItemSetting.ItemObjectSet();
+
         Save();
         return true;
     }
@@ -261,12 +317,9 @@ public class State : MonoBehaviour {
         myState.myAnimals = new List<Animal>();
         myState.myRecipe = new List<Recipe>();
         myState.myItems = new List<Item>();
+
+        myState.applyItem = new Dictionary<string, ItemData>();
         
-        //디폴트 할당
-        for (int i = 0; i < Database.instance.animals.Count; i++)
-        {
-            myState.myAnimals.Add(new Animal(i));
-        }
         ApplyInteriorItem(Database.instance.GetItemData("분홍벽지"));
         ApplyInteriorItem(Database.instance.GetItemData("분홍바닥지"));
         ItemSetting.ItemObjectSet();
@@ -279,17 +332,24 @@ public class State : MonoBehaviour {
     //animals 배열 업데이트
     public void UpdateData()
     {
-        int stateCount = myState.myAnimals.Count;
-        int dataCount = Database.instance.animals.Count;
+        // animals에 새로운 데이터 추가되었다면 myaAnimal에도 추가
+        foreach (var animalData in Database.instance.animals)
+        {
+            if (!myState.myAnimals.Any(a => a.code == animalData.code))
+            {
+                myState.myAnimals.Add(new Animal(animalData.code));
+            }
+        }
 
-        if (stateCount == dataCount) return;
-
-        //동물코드가 중간에 삭제되는 경우는 생각하지 않기로 해...
-
-        //현재 동물리스트보다 불러온 DB 동물리스트가 더 큰 경우 빈 만큼 Animal 요소 추가
-        else if (stateCount < dataCount) for (int i = stateCount; i < dataCount; i++) myState.myAnimals.Add(new Animal(i));
-        //현재 동물리스트보다 불러온 DB 동물리스트가 더 작은 경우 그만큼 현재 동물리스트의 요소 삭제
-        else myState.myAnimals.RemoveRange(dataCount, stateCount - dataCount);
+        // myAnimals 내에 더 이상 animals 리스트에 없는 항목 제거
+        for (int i = myState.myAnimals.Count - 1; i >= 0; i--)
+        {
+            if (!Database.instance.animals.Any(a => a.code == myState.myAnimals[i].code))
+            {
+                myState.myAnimals.RemoveAt(i);
+            }
+        }
+        
     }
 
 
@@ -301,9 +361,8 @@ public class State : MonoBehaviour {
 
         string jsonString = File.ReadAllText(filePath);
         myState = JsonUtility.FromJson<MyState>(jsonString);
-        
-        if (Database.instance.version != myState.version) { myState.version = Database.instance.version; UpdateData(); } //버전 다르면 버전 올리고 DB업데이트
-        else { UpdateData(); }
+
+        //UpdateData();
 
         //딕셔너리형 변수 로드 가능하도록 변환
         if (myState.tempList != null)

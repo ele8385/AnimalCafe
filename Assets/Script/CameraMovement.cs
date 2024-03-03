@@ -39,6 +39,10 @@ public class CameraMovement : MonoBehaviour
         {
             TextPopUp.OpenPopUp("완성한 주문서를 선택해주세요."); return;
         }
+        if (orderPapersManager.endOrderPaperEffect == true) //주문서 심사 효과 중이면 카메라 전환 불가
+        {
+            return;
+        }
         //cameraScroll.enabled = inCounter ?  true : false;
         inCounter = !inCounter;
 
@@ -62,6 +66,7 @@ public class CameraMovement : MonoBehaviour
         vector.y = toObject.position.y;
         toScene = vector;
         StartCoroutine(MoveToScene());
+        AudioManager.instance.PlaySFX("Click_Move");
 
         //카운터 안이면 스크롤 활성화, 밖이면 스크롤 비활성화
     }

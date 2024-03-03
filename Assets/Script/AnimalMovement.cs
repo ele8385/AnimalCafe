@@ -26,6 +26,7 @@ public class AnimalMovement : MonoBehaviour {
     public GameObject AnimalManagement;
     public delegate void Func();
     public delegate void StringFunc(string a);
+    public delegate void IntFunc(int val);
 
     public OrderPapersManager orderPapers;
     public BalloonManager balloonManager;
@@ -57,7 +58,7 @@ public class AnimalMovement : MonoBehaviour {
         circleCollider   = GetComponent<CircleCollider2D>();
         
         CountPos         = GameObject.Find("Counter").transform.Find("CountPos").gameObject;
-        orderPapers      = GameObject.Find("Canvas").transform.Find("InKitchenUI").transform.Find("OrderPapers").gameObject.GetComponent<OrderPapersManager>();
+        orderPapers      = GameObject.Find("Canvas").transform.Find("OrderPapers").gameObject.GetComponent<OrderPapersManager>();
         AnimalManagement = GameObject.Find("AnimalManagement");
         
         tempCounterPos   = GameObject.Find("TempCounterPos").transform.position;
@@ -115,7 +116,7 @@ public class AnimalMovement : MonoBehaviour {
         DrinkManager tableDrink = seat.gameObject.transform.Find("TableDrink").gameObject.GetComponent<DrinkManager>();
         tableDrink.gameObject.SetActive(false);
         TableMoney tableManager = seat.gameObject.transform.Find("TableMoney").gameObject.GetComponent<TableMoney>();
-        tableManager.MakeTableMoney("coin", 200); //팁 생성
+        tableManager.MakeTableMoney(200); //팁 생성
 
         Walk();
     }
@@ -280,12 +281,18 @@ public class AnimalMovement : MonoBehaviour {
         circleCollider.enabled = true;
 
         int result = CompareDrink(_takeDrink); // 0: miss 1:ok 2:perfect
-        
+        int price = 0; //금액
+
+        //토핑miss
         if (result  == -2) balloonManager.OpenSpeakBalloon("뭔가 잘못 들어갔어.");
-        else if (result  == -3) balloonManager.OpenSpeakBalloon("휘핑이 이게 아니야.");
-        else if (result == 0)//miss
+        //데코miss
+        else if (result  == -3) balloonManager.OpenSpeakBalloon("모양이 이게 아니야.");
+        //색상miss
+        if (result == 0)
         {
-            balloonManager.OpenSpeakBalloon(AnimalData.script_bad); 
+            balloonManager.OpenSpeakBalloon(AnimalData.script_bad);
+            AudioManager.instance.PlaySFX("Order_Miss");
+
         }
         else
         {
@@ -293,29 +300,33 @@ public class AnimalMovement : MonoBehaviour {
             //OK
             if (result == 1)  {
                 balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
-                coinManager.AddMoney("coin", recipe.price / 2); //수익 증가
-
-                State.instance.AddHeart(AnimalData.code, 1);
+                State.instance.AddHeart(AnimalData.code, 1); //호감도 정산
+                price = recipe.price / 2;                    //금액 정산
+                AudioManager.instance.PlaySFX("Order_Good");
             }
             //perfect
             else if (result == 2)
             {
                 balloonManager.OpenSpeakBalloon(AnimalData.script_good); // 추후 퍼펙트 대사 수정
-                coinManager.AddMoney("coin", recipe.price); //수익 증가
-                State.instance.AddHeart(AnimalData.code, 2);
+                State.instance.AddHeart(AnimalData.code, 1); //호감도 정산
+                price = recipe.price;                        //금액 정산
+                AudioManager.instance.PlaySFX("Order_Perfect");
+
+                //레시피 등록 성공
+                if (State.instance.AddRecipe(recipe))
+                {
+                    //성공 이펙트
+                }
 
             }
             else
             {
             }
-            //레시피 등록 성공
-            if (State.instance.AddRecipe(recipe))
-            {
-                //성공 이펙트
-            }
+
         }
 
         StartCoroutine(WaitCo(balloonManager.ResetBalloon, 2f)); //2초 뒤에 말풍선OFF
+        StartCoroutine(WaitIntCo(coinManager.AddCoin, 2f, price)); //2초 뒤에 코인 더하기
         StartCoroutine(WaitCo(TakeOut, 3f)); //3초 뒤에 이동 시작
 
         return result;
@@ -353,10 +364,13 @@ public class AnimalMovement : MonoBehaviour {
             if (! _takeDrink.gradient.SequenceEqual(recipe.drink.gradient)) return -5;
             for (int i = 0; i < take.Count; i++)
             {
-                if (!CompareColor(50f, order[i], take[i])) return 0;
+                if (!CompareColor(50f, order[i], take[i])) return 0; //Good 허용치 미달
             }
-            if (take.SequenceEqual(order)) return 2;
-            return 1;
+            for (int i = 0; i < take.Count; i++)
+            {
+                if (!CompareColor(10f, order[i], take[i])) return 1;//Perfect 허용치 미달
+            }
+            return 2;  //perfect
         }
         else
         {
@@ -376,7 +390,7 @@ public class AnimalMovement : MonoBehaviour {
 
     public void TakeOut() //음료 받고 코멘트 날린 뒤 이동할 때 호출
     {
-        //balloonManager.ResetBalloon(); //말풍선 끄기
+        balloonManager.ResetBalloon(); //말풍선 끄기 //2초뒤에 꺼지는 코루틴 중간에 카메라 넘어가면 오류나서 다시 호출
 
         exitRoute = Random.Range(-1, 3);
         //-1: 문으로, 0~n: n번 테이블로, -2: 구경
@@ -451,26 +465,13 @@ public class AnimalMovement : MonoBehaviour {
     }
     public void SitTalking()
     {
-        Talk.SetActive(true);
-        TextEdit(Talk, "맛있군");
+        balloonManager.OpenTalk("맛있군");
         StartCoroutine(WaitCo(SitTalkingStop, 2f));
     }
     public void SitTalkingStop()
     {
         Talk.SetActive(false);
-        TextEdit(Talk, "");
-    }
-    
-    //해당 색상으로 해당 글자를 오브젝트의 텍스트메쉬에 집어넣음
-    public void TextEdit(GameObject Object, string val)
-    {
-        GameObject TextObject = Object.transform.Find("Text").gameObject;
-        
-        for (int i = 0; i < TextObject.transform.childCount; i++)
-        {
-            TextObject.transform.GetChild(i).GetComponent<TextMesh>().text = val;
-        }
-
+        balloonManager.CloseTalk();
     }
 
     //sec초 뒤에 func함수 실행
@@ -483,6 +484,11 @@ public class AnimalMovement : MonoBehaviour {
     {
         yield return new WaitForSeconds(sec);
         func(str);
+    }
+    IEnumerator WaitIntCo(IntFunc func, float sec, int val)
+    {
+        yield return new WaitForSeconds(sec);
+        func(val);
     }
     /*
     //문에서등장

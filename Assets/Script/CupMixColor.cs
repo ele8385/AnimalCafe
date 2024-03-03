@@ -11,7 +11,7 @@ public class CupMixColor : MonoBehaviour
     public SpriteRenderer frame;
     public SpriteRenderer topping;
     public Animator whipping;
-    public SpriteRenderer powder;
+    public SpriteRenderer layer;
     public Sprite liquid_gradient;
     public Sprite liquid_block;
     public Animator effect;
@@ -71,6 +71,8 @@ public class CupMixColor : MonoBehaviour
         }
 
         StartCoroutine("SizeUpLiquid");
+        AudioManager.instance.PlaySFX("Cup_Pour");
+
         return true; 
     }
     //기타 떨어뜨림(누르면 한 번만 호출)
@@ -86,14 +88,14 @@ public class CupMixColor : MonoBehaviour
             StartCoroutine(CoFadeIn(topping));
         }
 
-        else if (col.gameObject.name == "Powder")
+        else if (col.gameObject.name == "Layer")
         {
             if (dropNum < 1) { cupManager.TextPopUp.OpenPopUp("빈 컵엔 뿌릴 수 없어요", popupPosY); return; } // 빈컵
             if (noMix) { cupManager.TextPopUp.OpenPopUp("이미 넣었어요", popupPosY); return; } // 이미 넣음
             //그라데이션 넣고 이거 바로 넣어도 상관 없을 듯
             effect.Play("Shiny", -1);
             noMix = true;
-
+            AudioManager.instance.PlaySFX("Cup_Layer");
         }
 
         else if (col.gameObject.name == "Gradient")
@@ -108,6 +110,8 @@ public class CupMixColor : MonoBehaviour
 
             Gradient();
             noMix = true;
+            AudioManager.instance.PlaySFX("Cup_Mix");
+
         }
 
         else if (col.gameObject.name == "Whippings")
@@ -117,6 +121,8 @@ public class CupMixColor : MonoBehaviour
             whipping.ResetTrigger("reset");
             //휘핑 넘버 설정
             whipping.SetInteger("num", 0);
+            AudioManager.instance.PlaySFX("Cup_Whipping");
+
         }
     }
 
@@ -217,7 +223,6 @@ public class CupMixColor : MonoBehaviour
     public void DoNotMix()
     {
         if (dropNum >= dropMaxNum) return;
-
         dropDivNum.Add(dropNum);
         toColor = new Color(1, 1, 1, 0);
     }
@@ -261,6 +266,7 @@ public class CupMixColor : MonoBehaviour
             }
         }
         StartCoroutine("SizeDownLiquidCo");
+        AudioManager.instance.PlaySFX("Click_Trash");
     }
 
 
@@ -310,7 +316,7 @@ public class CupMixColor : MonoBehaviour
         GameObject.Find("키친").transform.Find("Table").transform.Find("Trash").gameObject.GetComponent<BoxCollider2D>().enabled = true;
 
     }
-    
+
     IEnumerator SizeUpLiquid()
     {
         float count = 90f;
@@ -334,6 +340,42 @@ public class CupMixColor : MonoBehaviour
         yield return new WaitForSeconds(0.01f);
         cupManager.moving = false;
     }
+    //위 코루틴을 프레임 보정
+    /*
+    IEnumerator SizeUpLiquid()
+    {
+        GameObject ThisLiquid = LiquidDiv[dropNum - 1].gameObject;
+
+        //액체와 토핑 높이 보정
+        Vector3 toPos = liquidPos[dropNum - 1];
+        Vector3 DecoToPos = new Vector3(toPos.x, toPos.y, decoration.localPosition.z);
+
+        Vector3 startLiquidPos = ThisLiquid.transform.localPosition;
+        Vector3 startDecoPos = decoration.localPosition;
+        float elapsedTime = 0f;
+        float duration = 0.3f; // 전체 애니메이션 지속 시간
+
+        while (elapsedTime < duration)
+        {
+            // 경과 시간 비율 계산
+            elapsedTime += Time.deltaTime;
+            float t = elapsedTime / duration;
+
+            // Ease Out 효과를 위한 비율 조절 (예: t * t * (3f - 2f * t))
+            t = t * t * (3f - 2f * t);
+
+            // 보간하여 위치 업데이트
+            ThisLiquid.transform.localPosition = Vector3.Lerp(startLiquidPos, toPos, t);
+            decoration.localPosition = Vector3.Lerp(startDecoPos, DecoToPos, t);
+
+            yield return null;
+        }
+
+        // 최종 위치 확정
+        ThisLiquid.transform.localPosition = toPos;
+        decoration.localPosition = DecoToPos;
+        cupManager.moving = false;
+    }*/
 
     IEnumerator ChangeColor(SpriteRenderer spriteRenderer, Color _toColor)
     {
