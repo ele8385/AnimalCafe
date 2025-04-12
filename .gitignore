@@ -1,19 +1,40 @@
-**/[Ll]ibrary/
-**/[Tt]emp/
-**/[Oo]bj/
-**/[Bb]uild/
-**/[Bb]uilds/
-**/[Ll]ogs/
-**/[Uu]ser[Ss]ettings/
-.gradle/
+# Unity generated folders
+[Ll]ibrary/
+[Tt]emp/
+[Oo]bj/
+[Bb]uild/
+[Bb]uilds/
+[Ll]ogs/
+[Uu]ser[Ss]ettings/
+MemoryCaptures/
+.assetstoretools/
+
+# Visual Studio / JetBrains IDE
+*.csproj
+*.unityproj
+*.sln
+*.suo
+*.tmp
+*.user
+*.userprefs
+*.pidb
+*.booproj
+*.svd
+.vscode/
+.idea/
+
+# macOS system files
+.DS_Store
+
+# Unity build results
 *.apk
 *.aab
-*.unitypackage
 *.app
-*.pidb.meta
+
+# Unity metadata files (binary symbols)
 *.pdb.meta
+*.pidb.meta
 *.mdb.meta
-/[Aa]ssets/[Ss]treamingAssets/aa.meta
-/[Aa]ssets/[Ss]treamingAssets/aa/*
-/[Aa]ssets/[Aa]ddressable[Aa]ssets[Dd]ata/*/*.bin*
-[Ll]ibrary/
+
+# Addressables / StreamingAssets data
+/[Aa]s
